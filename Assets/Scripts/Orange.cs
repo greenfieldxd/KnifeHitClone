@@ -8,11 +8,7 @@ using Random = UnityEngine.Random;
 public class Orange : MonoBehaviour
 {
     [SerializeField] private Transform _parentOgange;
-    private void Start()
-    {
-        _parentOgange.DORotate(new Vector3(0, 0, Random.Range(0, 361)), 0f);
-    }
-
+   
     private void OnTriggerEnter2D(Collider2D other)
     {
         FindObjectOfType<GameManager>().AddScore(2);
@@ -23,6 +19,6 @@ public class Orange : MonoBehaviour
 
     private void DestroyOrange()
     {
-        Destroy(gameObject);
+        Destroy(_parentOgange.gameObject);
     }
 }

@@ -13,6 +13,7 @@ public class MovingCircle : MonoBehaviour
     [SerializeField] private Vector3 startScale;
 
     private int _prevRotateObstacle = 0;
+    private int _orangeRotate = -1000;
     
     void Start()
     {
@@ -23,20 +24,22 @@ public class MovingCircle : MonoBehaviour
 
     public void CreateOrange()
     {
-        Instantiate(orangePrefab, transform);
+        var orange = Instantiate(orangePrefab, transform);
+        _orangeRotate = Random.Range(0, 361);
+        
+        orange.transform.DORotate(new Vector3(0, 0, _orangeRotate), 0f);
     }
 
     public void CreateObstacles()
     {
         var rand = Random.Range(1, 4);
-        Debug.Log("OBSTACLE CREATE");
 
         for (int i = 0; i < rand; i++)
         {
             var randRotare = Random.Range(0, 361);
-            Debug.Log("OBSTACLE " + i);
             _prevRotateObstacle = randRotare;
-            var knife = Instantiate(knifeObstaclePrefab, transform); 
+            var knife = Instantiate(knifeObstaclePrefab, transform);
+            knife.transform.position = new Vector3(0, -3,0);
             knife.transform.DORotate(new Vector3(0, 0, randRotare), 0f);
         }
     }
