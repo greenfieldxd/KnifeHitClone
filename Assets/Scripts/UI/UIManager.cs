@@ -20,6 +20,8 @@ public class UIManager : MonoBehaviour
     
     private GameManager _gameManager;
 
+    private int _dotsCount = 0;
+
     private List<GameObject> _knifeUIElementsList = new List<GameObject>();
     
     void Start()
@@ -58,9 +60,15 @@ public class UIManager : MonoBehaviour
         anim.Append(orangeIcon.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.InSine));
     }
 
-    public void UpdateStage(int number)
+    public void UpdateStage()
     {
-        gameUI.GetComponent<GameUI>().ActivateDotElement(number);
+        if (_dotsCount == 5)
+        {
+            ResetDotsUI();
+            _dotsCount = 0;
+        }
+        gameUI.GetComponent<GameUI>().ActivateDotElement(_dotsCount);
+        _dotsCount++;
     }
 
     public void CreateKnifesPanel(int count)

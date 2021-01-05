@@ -18,7 +18,6 @@ public class Knife : MonoBehaviour
     private void Start()
     {
         _collider2D = GetComponent<PolygonCollider2D>();
-        transform.DOScale(_startScale, 0.1f).SetEase(Ease.InSine);
     }
 
     public void Launch()

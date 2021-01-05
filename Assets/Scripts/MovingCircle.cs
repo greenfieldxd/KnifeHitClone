@@ -24,7 +24,6 @@ public class MovingCircle : MonoBehaviour
 
     void Start()
     {
-        transform.DOScale(startScale, 0.1f).SetEase(Ease.InSine);
         transform.DORotate(new Vector3(0, 0, 360f), moveSpeedTime, RotateMode.FastBeyond360).SetEase(Ease.Linear)
             .SetLoops(-1, LoopType.Restart);
     }
