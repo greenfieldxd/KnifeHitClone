@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Knife : MonoBehaviour
 {
@@ -30,7 +31,11 @@ public class Knife : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Knife"))
         {
-            FindObjectOfType<GameManager>().LoseGame();
+            transform.DOMoveY(-8, 0.5f).SetEase(Ease.InSine);
+            transform.DOMoveX(Random.Range(-4, -5), 0.5f).SetEase(Ease.InSine).OnComplete((() => FindObjectOfType<GameManager>().LoseGame()));
+            transform.DORotate(new Vector3(0, 0, 360) * 3, 1f, RotateMode.FastBeyond360);
+            
+            Vibration.Vibrate(30);
         }
 
         if (other.gameObject.CompareTag("Circle"))
@@ -43,11 +48,13 @@ public class Knife : MonoBehaviour
             transform.SetParent(other.transform);
             _collider2D.isTrigger = true;
             
-            //ShakeCircle
+            //ShakeCircle and vibrate
             other.GetComponent<MovingCircle>().ShakeCircle();
+            Vibration.Vibrate(30);
 
             //Hit target
             FindObjectOfType<GameManager>().HitTarget();
+            enabled = false;
         }
     }
 

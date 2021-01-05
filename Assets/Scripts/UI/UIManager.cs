@@ -12,8 +12,11 @@ public class UIManager : MonoBehaviour
     [Space]
     [SerializeField] private Button playButton;
     [SerializeField] private Button knifeButton;
+    [Space]
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI orangeText;
+    [SerializeField] private GameObject orangeIcon;
+    [Space]
     [SerializeField] private GameObject knifeUiElementPrefab;
     [SerializeField] private Transform panelKnifes;
     
@@ -51,10 +54,11 @@ public class UIManager : MonoBehaviour
         gameUI.SetActive(false);
         resultUI.SetActive(true);
     }
-    public void RestartGame()
+    public void ActivateGameUI()
     {
         gameUI.SetActive(true);
         resultUI.SetActive(false);
+        ResetDotsUI();
     }
 
     public void UpdateScore(int newScore)
@@ -65,6 +69,11 @@ public class UIManager : MonoBehaviour
     public void UpdateOrangeScore(int newOrangeScore)
     {
         orangeText.text = "" + newOrangeScore;
+
+        Sequence anim = DOTween.Sequence();
+        anim.Append(orangeIcon.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.2f).SetEase(Ease.InSine));
+        anim.Append(orangeIcon.transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.2f).SetEase(Ease.InSine));
+        anim.Append(orangeIcon.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.InSine));
     }
 
     public void UpdateStage(int number)

@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
 
     private void CreateMovingCircle()
     {
+        _canLaunch = true;
         var circle = Instantiate(circlePrefab, startCirclePosition);
         _activeCircle = circle.GetComponent<MovingCircle>();
 
@@ -79,7 +80,7 @@ public class GameManager : MonoBehaviour
             }
             
             _activeKnife.Launch();
-            Invoke(nameof(CreateKnife), 0.25f);
+            Invoke(nameof(CreateKnife), 0.3f);
         }
     }
     
@@ -102,6 +103,18 @@ public class GameManager : MonoBehaviour
         DataManager.SetOrangeScore(_orangeCount);
         _uiManager.UpdateOrangeScore(_orangeCount);
     }
+    
+    private void LoadAllOranges()
+    {
+        _orangeCount = DataManager.GetAllOranges();
+        _uiManager.UpdateOrangeScore(_orangeCount);
+    }
+    
+    private void UpdateUI()
+    {
+        _uiManager.ActivateHitKnife(_knifesInCircle);
+        _knifesInCircle++;
+    }
 
     public void HitTarget()
     {
@@ -110,11 +123,7 @@ public class GameManager : MonoBehaviour
         CheckLevelProgress();
     }
 
-    private void UpdateUI()
-    {
-        _uiManager.ActivateHitKnife(_knifesInCircle);
-        _knifesInCircle++;
-    }
+    
 
     private void CheckLevelProgress()
     {
@@ -130,43 +139,44 @@ public class GameManager : MonoBehaviour
 
     private void LoadNextLevel()
     {
-        _canLaunch = true;
+        //Win Vibrate
+        Vibration.Vibrate(30);
+
         _currentLevel++;
         _stage++;
 
         if (_currentLevel == _levelSetup.GetMaxLevelCount())
         {
             _currentLevel = 0;
+            _uiManager.ResetDotsUI();
         }
 
         _uiManager.UpdateStage(_stage);
         _uiManager.CreateKnifesPanel(_levelSetup.GetLevelInfo(_currentLevel).GetLevelKnifesCount()); 
         CreateMovingCircle();
+        _canLaunch = true;
     }
 
-    private void LoadAllOranges()
-    {
-        _orangeCount = DataManager.GetAllOranges();
-        _uiManager.UpdateOrangeScore(_orangeCount);
-    }
+    
 
     public void LoseGame()
     {
+        //LoseGame and Activate Lose menu
         _uiManager.LoseGame();
     }
 
-    public void ClearGame()
+    public void RestartGame()
     {
-        _currentLevel = 0;
-        _stage = 0;
+        _uiManager.ActivateGameUI();
+
+        _currentLevel = -1;
+        _stage = -1;
         _score = 0;
+
+        _canLaunch = false;
         _knifesInCircle = 0;
+            
+        _activeCircle.DeleteCircleFast();
 
-        _activeCircle.ClearGame();
-        _activeKnife.ClearGame();
-        _uiManager.ResetDotsUI();
-        
-        InitGame();
-    }
-
+        Invoke(nameof(LoadNextLevel), 0.3f);    }
 }

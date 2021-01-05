@@ -22,6 +22,6 @@ public class DotUIElement : MonoBehaviour
 
     public void ResetDotElement()
     {
-        GetComponent<SpriteRenderer>().sprite = dotSpriteIconOff;
+        GetComponent<Image>().sprite = dotSpriteIconOff;
     }
 }

@@ -36,7 +36,6 @@ public class LevelSetup : ScriptableObject
         public bool GetOrangeChance()
         {
             var rand = Random.value * 100;
-            Debug.Log("ORANGE CHANCE " + (rand));
 
             return rand < orangeChance;
         }

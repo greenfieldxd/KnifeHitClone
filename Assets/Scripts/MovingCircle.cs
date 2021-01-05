@@ -11,6 +11,7 @@ public class MovingCircle : MonoBehaviour
     [SerializeField] private GameObject sliceCirclePrefab;
     [SerializeField] private GameObject orangePrefab;
     [SerializeField] private GameObject knifeObstaclePrefab;
+    [SerializeField] private Animation flashCircleEffect;
     [Space]
     [SerializeField] private Vector3 startScale;
 
@@ -32,7 +33,6 @@ public class MovingCircle : MonoBehaviour
     {
         var orange = Instantiate(orangePrefab, transform);
         var orangeRotate = Random.Range(0, _createPositions.Count);
-        Debug.Log("CREATE ORANGE " + _createPositions[orangeRotate]);
        
        orange.transform.DORotate(new Vector3(0, 0, _createPositions[orangeRotate]), 0f);
        _createPositions.RemoveAt(orangeRotate);
@@ -46,7 +46,6 @@ public class MovingCircle : MonoBehaviour
         {
             var knife = Instantiate(knifeObstaclePrefab, transform);
             var randKnifeRotate = Random.Range(0, _createPositions.Count);
-            Debug.Log("CREATE KNIFE " + _createPositions[randKnifeRotate]);
 
             knife.transform.DORotate(new Vector3(0, 0, _createPositions[randKnifeRotate]), 0f); 
             _createPositions.RemoveAt(randKnifeRotate);
@@ -55,7 +54,8 @@ public class MovingCircle : MonoBehaviour
     
     public void ShakeCircle()
     {
-        transform.DOShakePosition(.5f, new Vector3(0.15f, 0.15f, 0.15f), 10, 20f);
+        transform.DOShakePosition(.2f, new Vector3(0.15f, 0.15f, 0.15f), 10, 20f);
+        flashCircleEffect.Play("FlashCircle");
     }
 
     public void DestroyCircle()
@@ -64,7 +64,7 @@ public class MovingCircle : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void ClearGame()
+    public void DeleteCircleFast()
     {
         Destroy(gameObject);
     }
@@ -74,9 +74,7 @@ public class MovingCircle : MonoBehaviour
         for (int i = 0; i < 351; i += 15)
         {
             _createPositions.Add(i);
-            Debug.Log(i);
         }
-        Debug.Log(_createPositions.Count);
     }
 
 }

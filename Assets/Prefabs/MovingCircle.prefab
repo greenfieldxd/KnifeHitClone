@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5135914759578062931}
   - component: {fileID: 5135914759578062929}
   - component: {fileID: 5135914759578062928}
+  - component: {fileID: 2384438177745787207}
   m_Layer: 0
   m_Name: MovingCircle
   m_TagString: Circle
@@ -100,6 +101,7 @@ MonoBehaviour:
   sliceCirclePrefab: {fileID: 4880535129887764398, guid: 53d70d7ed0780b34580b85d9a7618f19, type: 3}
   orangePrefab: {fileID: 3097833887553643736, guid: ada362faee8fe9a458df128849426d64, type: 3}
   knifeObstaclePrefab: {fileID: 149683147549181972, guid: 9b02acf3cc4f6064180eabf8a5f9b684, type: 3}
+  flashCircleEffect: {fileID: 2384438177745787207}
   startScale: {x: 0.5, y: 0.5, z: 0.5}
 --- !u!58 &5135914759578062928
 CircleCollider2D:
@@ -117,3 +119,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 2.55
+--- !u!111 &2384438177745787207
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5135914759578062932}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: b091902ced398af458471e8a7a61ab0c, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: b091902ced398af458471e8a7a61ab0c, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
