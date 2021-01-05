@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class MovingCircle : MonoBehaviour
 {
@@ -12,12 +14,16 @@ public class MovingCircle : MonoBehaviour
     [Space]
     [SerializeField] private Vector3 startScale;
 
-    private int _prevRotateObstacle = 0;
-    private int _orangeRotate = -1000;
-    
+    private List<int> _createPositions = new List<int>();
+
+    private void Awake()
+    {
+        CreateListPositions();
+    }
+
     void Start()
     {
-        transform.DOScale(startScale, 0.2f).SetEase(Ease.InSine);
+        transform.DOScale(startScale, 0.1f).SetEase(Ease.InSine);
         transform.DORotate(new Vector3(0, 0, 360f), moveSpeedTime, RotateMode.FastBeyond360).SetEase(Ease.Linear)
             .SetLoops(-1, LoopType.Restart);
     }
@@ -25,22 +31,25 @@ public class MovingCircle : MonoBehaviour
     public void CreateOrange()
     {
         var orange = Instantiate(orangePrefab, transform);
-        _orangeRotate = Random.Range(0, 361);
-        
-        orange.transform.DORotate(new Vector3(0, 0, _orangeRotate), 0f);
+        var orangeRotate = Random.Range(0, _createPositions.Count);
+        Debug.Log("CREATE ORANGE " + _createPositions[orangeRotate]);
+       
+       orange.transform.DORotate(new Vector3(0, 0, _createPositions[orangeRotate]), 0f);
+       _createPositions.RemoveAt(orangeRotate);
     }
 
-    public void CreateObstacles()
+    public void CreateKnifeObstacles()
     {
         var rand = Random.Range(1, 4);
 
         for (int i = 0; i < rand; i++)
         {
-            var randRotare = Random.Range(0, 361);
-            _prevRotateObstacle = randRotare;
             var knife = Instantiate(knifeObstaclePrefab, transform);
-            knife.transform.position = new Vector3(0, -3,0);
-            knife.transform.DORotate(new Vector3(0, 0, randRotare), 0f);
+            var randKnifeRotate = Random.Range(0, _createPositions.Count);
+            Debug.Log("CREATE KNIFE " + _createPositions[randKnifeRotate]);
+
+            knife.transform.DORotate(new Vector3(0, 0, _createPositions[randKnifeRotate]), 0f); 
+            _createPositions.RemoveAt(randKnifeRotate);
         }
     }
     
@@ -53,6 +62,21 @@ public class MovingCircle : MonoBehaviour
     {
         Instantiate(sliceCirclePrefab);
         Destroy(gameObject);
+    }
+
+    public void ClearGame()
+    {
+        Destroy(gameObject);
+    }
+
+    private void CreateListPositions()
+    {
+        for (int i = 0; i < 351; i += 15)
+        {
+            _createPositions.Add(i);
+            Debug.Log(i);
+        }
+        Debug.Log(_createPositions.Count);
     }
 
 }

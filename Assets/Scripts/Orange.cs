@@ -8,17 +8,22 @@ using Random = UnityEngine.Random;
 public class Orange : MonoBehaviour
 {
     [SerializeField] private Transform _parentOgange;
+    [SerializeField] private GameObject sliceOrangePrefab;
+
    
     private void OnTriggerEnter2D(Collider2D other)
     {
-        FindObjectOfType<GameManager>().AddScore(2);
-        transform.DOScale(Vector3.zero, 0.2f);
+        GameManager gm = FindObjectOfType<GameManager>();
+        gm.AddScore(1);
+        gm.AddOrange(2);
         
-        Invoke(nameof(DestroyOrange), 0.2f);
+        DestroyOrange();
     }
 
     private void DestroyOrange()
     {
-        Destroy(_parentOgange.gameObject);
-    }
+        Instantiate(sliceOrangePrefab);
+        Destroy(_parentOgange.gameObject);    }
+    
+    
 }

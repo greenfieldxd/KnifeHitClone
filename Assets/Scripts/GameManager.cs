@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -23,28 +24,31 @@ public class GameManager : MonoBehaviour
     private MovingCircle _activeCircle;
 
     private int _currentLevel;
+    
     private int _knifesInCircle = 0;
-    private int _score = 0;
+    
+    public int _score { get; private set; }
+    public int _stage { get; private set; }
+    
+    private int _orangeCount;
 
     private bool _canLaunch = true;
     
-    void Start()
-    {
-        InitGame();
-    }
 
-    private void InitGame()
+    public void InitGame()
     {
         _currentLevel = 0;
-        
+        _stage = 0;
+
         CreateKnife();
         CreateMovingCircle();
-
+        
+        LoadAllOranges();
         _uiManager.CreateKnifesPanel(_levelSetup.GetLevelInfo(_currentLevel).GetLevelKnifesCount());
+        _uiManager.UpdateStage(_stage);
     }
     
     
-    //---------KNIFE LOGIC----------//
 
     private void CreateKnife()
     {
@@ -58,9 +62,9 @@ public class GameManager : MonoBehaviour
     {
         var circle = Instantiate(circlePrefab, startCirclePosition);
         _activeCircle = circle.GetComponent<MovingCircle>();
-        
-        _activeCircle.CreateObstacles();
+
         if (_levelSetup.GetLevelInfo(_currentLevel).GetOrangeChance()) _activeCircle.CreateOrange();
+        _activeCircle.CreateKnifeObstacles();
     }
 
     public void LaunchActiveKnife()
@@ -68,6 +72,12 @@ public class GameManager : MonoBehaviour
         if (_canLaunch)
         {
             _canLaunch = false;
+            
+            if (_activeKnife == null)
+            {
+                CreateKnife();
+            }
+            
             _activeKnife.Launch();
             Invoke(nameof(CreateKnife), 0.25f);
         }
@@ -76,7 +86,21 @@ public class GameManager : MonoBehaviour
     public void AddScore(int count)
     {
         _score += count;
-        Debug.Log("Score: " + _score);
+
+        if (_score > DataManager.GetBestScore())
+        {
+            DataManager.SetBestScore(_score);
+        }
+        
+        _uiManager.UpdateScore(_score);
+    }
+
+    public void AddOrange(int count)
+    {
+        _orangeCount += count;
+        
+        DataManager.SetOrangeScore(_orangeCount);
+        _uiManager.UpdateOrangeScore(_orangeCount);
     }
 
     public void HitTarget()
@@ -108,20 +132,41 @@ public class GameManager : MonoBehaviour
     {
         _canLaunch = true;
         _currentLevel++;
+        _stage++;
 
         if (_currentLevel == _levelSetup.GetMaxLevelCount())
         {
-            RestartGame();
+            _currentLevel = 0;
         }
-        else
-        {
-            _uiManager.CreateKnifesPanel(_levelSetup.GetLevelInfo(_currentLevel).GetLevelKnifesCount());
-            CreateMovingCircle();
-        }
+
+        _uiManager.UpdateStage(_stage);
+        _uiManager.CreateKnifesPanel(_levelSetup.GetLevelInfo(_currentLevel).GetLevelKnifesCount()); 
+        CreateMovingCircle();
     }
 
-    public static void RestartGame()
+    private void LoadAllOranges()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        _orangeCount = DataManager.GetAllOranges();
+        _uiManager.UpdateOrangeScore(_orangeCount);
     }
+
+    public void LoseGame()
+    {
+        _uiManager.LoseGame();
+    }
+
+    public void ClearGame()
+    {
+        _currentLevel = 0;
+        _stage = 0;
+        _score = 0;
+        _knifesInCircle = 0;
+
+        _activeCircle.ClearGame();
+        _activeKnife.ClearGame();
+        _uiManager.ResetDotsUI();
+        
+        InitGame();
+    }
+
 }

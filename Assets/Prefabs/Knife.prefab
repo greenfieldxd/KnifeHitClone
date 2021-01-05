@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPosition: 0
-  durationFly: 0.4
+  durationFly: 0.25
   _startScale: {x: 0.25, y: 0.25, z: 0.25}
 --- !u!50 &5150883318472339435
 Rigidbody2D:

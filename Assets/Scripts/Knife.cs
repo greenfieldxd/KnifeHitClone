@@ -17,7 +17,7 @@ public class Knife : MonoBehaviour
     private void Start()
     {
         _collider2D = GetComponent<PolygonCollider2D>();
-        transform.DOScale(_startScale, 0.2f).SetEase(Ease.InSine);
+        transform.DOScale(_startScale, 0.1f).SetEase(Ease.InSine);
     }
 
     public void Launch()
@@ -30,7 +30,7 @@ public class Knife : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Knife"))
         {
-            GameManager.RestartGame();
+            FindObjectOfType<GameManager>().LoseGame();
         }
 
         if (other.gameObject.CompareTag("Circle"))
@@ -49,6 +49,11 @@ public class Knife : MonoBehaviour
             //Hit target
             FindObjectOfType<GameManager>().HitTarget();
         }
+    }
+
+    public void ClearGame()
+    {
+        Destroy(gameObject);
     }
     
     
