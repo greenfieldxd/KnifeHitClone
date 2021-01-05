@@ -98,6 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _parentOgange: {fileID: 6685605929752843091}
   sliceOrangePrefab: {fileID: 5423463126213770094, guid: fb5b0f7b464a31c44a18d2e788a5cc93, type: 3}
+  orangeEffect: {fileID: 9415624925135399, guid: 9119695ac9cd90a42af28d4516840064, type: 3}
 --- !u!58 &3286646541070755896
 CircleCollider2D:
   m_ObjectHideFlags: 0

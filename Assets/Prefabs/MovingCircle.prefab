@@ -102,6 +102,7 @@ MonoBehaviour:
   orangePrefab: {fileID: 3097833887553643736, guid: ada362faee8fe9a458df128849426d64, type: 3}
   knifeObstaclePrefab: {fileID: 149683147549181972, guid: 9b02acf3cc4f6064180eabf8a5f9b684, type: 3}
   flashCircleEffect: {fileID: 2384438177745787207}
+  slashEffect: {fileID: 4021103657954561961, guid: 5c755f9bc5253ea418e919994537dcc7, type: 3}
   startScale: {x: 0.5, y: 0.5, z: 0.5}
 --- !u!58 &5135914759578062928
 CircleCollider2D:

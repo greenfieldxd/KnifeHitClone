@@ -16,7 +16,7 @@ public class Orange : MonoBehaviour
         GameManager gm = FindObjectOfType<GameManager>();
         gm.AddScore(1);
         gm.AddOrange(2);
-        
+
         DestroyOrange();
     }
 

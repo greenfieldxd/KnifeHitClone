@@ -12,8 +12,6 @@ public class MovingCircle : MonoBehaviour
     [SerializeField] private GameObject orangePrefab;
     [SerializeField] private GameObject knifeObstaclePrefab;
     [SerializeField] private Animation flashCircleEffect;
-    [Space]
-    [SerializeField] private Vector3 startScale;
 
     private List<int> _createPositions = new List<int>();
 

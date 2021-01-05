@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetPosition: 0
   durationFly: 0.2
-  _startScale: {x: 0.25, y: 0.25, z: 0.25}
+  _effectKnife: {fileID: 7255580438491753110, guid: a1308a041db843f4599a976e5770ba11, type: 3}
 --- !u!50 &5150883318472339435
 Rigidbody2D:
   serializedVersion: 4
