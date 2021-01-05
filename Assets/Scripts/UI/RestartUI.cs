@@ -10,7 +10,6 @@ public class RestartUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI bestScoreText;
     [SerializeField] private TextMeshProUGUI allOrangesText;
     [SerializeField] private Button restartButton;
-    [SerializeField] private GameObject texts;
 
     private void Start()
     {
@@ -19,11 +18,11 @@ public class RestartUI : MonoBehaviour
         allOrangesText.text = "" + DataManager.GetAllOranges();
         bestScoreText.text = "Score: " + gm._score + ". " + "Stage " + (gm._stage + 1);
         
-        restartButton.onClick.AddListener(RestartGame);
+        restartButton.onClick.AddListener(RestartButton);
     }
 
-    private void RestartGame()
+    private void RestartButton()
     {
-        FindObjectOfType<GameManager>().RestartGame();
+        GameManager.RestartGame();
     }
 }

@@ -54,16 +54,10 @@ public class Knife : MonoBehaviour
 
             //Hit target
             FindObjectOfType<GameManager>().HitTarget();
-            enabled = false;
+            Destroy(this);
         }
     }
 
-    public void ClearGame()
-    {
-        Destroy(gameObject);
-    }
-    
-    
     
     
 }

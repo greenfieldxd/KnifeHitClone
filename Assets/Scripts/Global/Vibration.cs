@@ -37,8 +37,6 @@ public static class Vibration
 
 #endif
     
-    private const string KEY_VIBRO = "key_vibro_change";
-
     private static bool initialized = false;
     public static void Init ()
     {
@@ -111,8 +109,7 @@ public static class Vibration
     ///</summary>
     public static void Vibrate ( long milliseconds )
     {
-        var vibroVolume = PlayerPrefs.GetFloat(KEY_VIBRO, 2);
-        if ( Application.isMobilePlatform && vibroVolume == 2) {
+        if (Application.isMobilePlatform) {
 #if !UNITY_WEBGL
 #if UNITY_ANDROID
 

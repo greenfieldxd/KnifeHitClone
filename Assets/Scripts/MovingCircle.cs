@@ -64,11 +64,6 @@ public class MovingCircle : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void DeleteCircleFast()
-    {
-        Destroy(gameObject);
-    }
-
     private void CreateListPositions()
     {
         for (int i = 0; i < 351; i += 15)

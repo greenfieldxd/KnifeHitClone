@@ -24,16 +24,19 @@ public class GameManager : MonoBehaviour
     private MovingCircle _activeCircle;
 
     private int _currentLevel;
-    
     private int _knifesInCircle = 0;
     
     public int _score { get; private set; }
     public int _stage { get; private set; }
     
     private int _orangeCount;
-
     private bool _canLaunch = true;
-    
+
+
+    private void Start()
+    {
+        InitGame();
+    }
 
     public void InitGame()
     {
@@ -165,18 +168,10 @@ public class GameManager : MonoBehaviour
         _uiManager.LoseGame();
     }
 
-    public void RestartGame()
+    public static void RestartGame()
     {
-        _uiManager.ActivateGameUI();
+        SceneManager.LoadScene("GameScene");
+    }
 
-        _currentLevel = -1;
-        _stage = -1;
-        _score = 0;
 
-        _canLaunch = false;
-        _knifesInCircle = 0;
-            
-        _activeCircle.DeleteCircleFast();
-
-        Invoke(nameof(LoadNextLevel), 0.3f);    }
 }
