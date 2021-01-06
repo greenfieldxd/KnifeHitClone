@@ -11,7 +11,7 @@ public class DotUIElement : MonoBehaviour
 
     Sequence animDotElement;
 
-    public void ActivateDOtElement()
+    public void SetActive()
     {
         GetComponent<Image>().sprite = dotSpriteIconOn;
 

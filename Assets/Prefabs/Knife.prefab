@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9021313186391847096}
   - component: {fileID: 9021313186391847094}
   - component: {fileID: 5150883318472339435}
-  - component: {fileID: 1877165151388573153}
+  - component: {fileID: 8204525117317689335}
   m_Layer: 0
   m_Name: Knife
   m_TagString: Knife
@@ -121,7 +121,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!60 &1877165151388573153
+--- !u!60 &8204525117317689335
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,8 +146,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -1.4599999, y: -2.12}
-      - {x: -1.644583, y: -2.2745829}
-      - {x: -2.238784, y: -1.6636395}
-      - {x: 0.1948142, y: 0.7868514}
-      - {x: 0.83446705, y: 0.18446648}
+    - - {x: -1.4275557, y: -1.9844974}
+      - {x: -1.443817, y: -1.9631246}
+      - {x: -1.4665388, y: -1.9486592}
+      - {x: -1.6663868, y: -1.7131729}
+      - {x: -1.9699574, y: -1.426316}
+      - {x: 0.68959796, y: 1.3078294}
+      - {x: 1.2653136, y: 0.7023828}

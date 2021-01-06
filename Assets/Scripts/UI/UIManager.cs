@@ -45,6 +45,14 @@ public class UIManager : MonoBehaviour
         resultUI.SetActive(true);
     }
 
+    public void ContinueGame()
+    {
+        resultUI.SetActive(false);
+        gameUI.SetActive(true);
+        
+        _gameManager.SpendOranges(20);
+    }
+
     public void UpdateScore(int newScore)
     {
         scoreText.text = "" + newScore;
@@ -60,14 +68,14 @@ public class UIManager : MonoBehaviour
         anim.Append(orangeIcon.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.InSine));
     }
 
-    public void UpdateStage()
+    public void UpdateStage(int stage)
     {
         if (_dotsCount == 5)
         {
             ResetDotsUI();
             _dotsCount = 0;
         }
-        gameUI.GetComponent<GameUI>().ActivateDotElement(_dotsCount);
+        gameUI.GetComponent<GameUI>().ActivateDotElement(_dotsCount, stage);
         _dotsCount++;
     }
 

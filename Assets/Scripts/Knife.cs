@@ -36,6 +36,7 @@ public class Knife : MonoBehaviour
             transform.DORotate(new Vector3(0, 0, 360) * 3, 1f, RotateMode.FastBeyond360);
             
             Vibration.Vibrate(30);
+            Destroy(this);
         }
 
         if (other.gameObject.CompareTag("Circle"))

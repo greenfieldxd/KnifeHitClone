@@ -15,24 +15,24 @@ public class MovingCircle : MonoBehaviour
 
     private List<int> _createPositions = new List<int>();
 
-    private void Awake()
-    {
-        CreateListPositions();
-    }
+    private int _rotate;
 
+   
     void Start()
     {
         transform.DORotate(new Vector3(0, 0, 360f), moveSpeedTime, RotateMode.FastBeyond360).SetEase(Ease.Linear)
             .SetLoops(-1, LoopType.Restart);
+        
+        _rotate = Random.Range(0, 361);
     }
 
     public void CreateOrange()
     {
         var orange = Instantiate(orangePrefab, transform);
-        var orangeRotate = Random.Range(0, _createPositions.Count);
        
-       orange.transform.DORotate(new Vector3(0, 0, _createPositions[orangeRotate]), 0f);
-       _createPositions.RemoveAt(orangeRotate);
+       orange.transform.DORotate(new Vector3(0, 0, _rotate), 0f);
+       
+       _rotate += Random.Range(20, 71);
     }
 
     public void CreateKnifeObstacles()
@@ -42,10 +42,9 @@ public class MovingCircle : MonoBehaviour
         for (int i = 0; i < rand; i++)
         {
             var knife = Instantiate(knifeObstaclePrefab, transform);
-            var randKnifeRotate = Random.Range(0, _createPositions.Count);
+            knife.transform.DORotate(new Vector3(0, 0, _rotate), 0f);
 
-            knife.transform.DORotate(new Vector3(0, 0, _createPositions[randKnifeRotate]), 0f); 
-            _createPositions.RemoveAt(randKnifeRotate);
+            _rotate += Random.Range(20, 71);
         }
     }
     
@@ -59,14 +58,6 @@ public class MovingCircle : MonoBehaviour
     {
         Instantiate(sliceCirclePrefab);
         Destroy(gameObject);
-    }
-
-    private void CreateListPositions()
-    {
-        for (int i = 0; i < 351; i += 15)
-        {
-            _createPositions.Add(i);
-        }
     }
 
 }

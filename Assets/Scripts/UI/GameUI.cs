@@ -8,11 +8,10 @@ public class GameUI : MonoBehaviour
     [SerializeField] private DotUIElement[] dotElements;
     [SerializeField] private TextMeshProUGUI stageText;
 
-    public void ActivateDotElement(int number)
+    public void ActivateDotElement(int number, int stage)
     {
-        dotElements[number].ActivateDOtElement();
-
-        var stage = number + 1;
+        dotElements[number].SetActive();
+        
         stageText.text = "Stage " + stage;
 
         if (stage > DataManager.GetBestStage())
