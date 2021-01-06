@@ -100,6 +100,8 @@ MonoBehaviour:
   targetPosition: 0
   durationFly: 0.2
   _effectKnife: {fileID: 7255580438491753110, guid: a1308a041db843f4599a976e5770ba11, type: 3}
+  _knifeSound: {fileID: 8300000, guid: 65f00351939ee79408647c7bf1d53ae4, type: 3}
+  _circleSound: {fileID: 8300000, guid: 32b2714ddebd2494f8bd256b656c083d, type: 3}
 --- !u!50 &5150883318472339435
 Rigidbody2D:
   serializedVersion: 4

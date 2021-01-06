@@ -10,6 +10,8 @@ public class Knife : MonoBehaviour
     [SerializeField] private float targetPosition;
     [SerializeField] private float durationFly;
     [SerializeField] private GameObject _effectKnife;
+    [SerializeField] private AudioClip _knifeSound;
+    [SerializeField] private AudioClip _circleSound;
 
     private PolygonCollider2D _collider2D;
         
@@ -31,6 +33,8 @@ public class Knife : MonoBehaviour
         if (other.gameObject.CompareTag("Knife"))
         {
             Instantiate(_effectKnife);
+            SoundManager.PlaySound(_knifeSound);
+            
             transform.DOMoveY(-8, 0.5f).SetEase(Ease.InSine);
             transform.DOMoveX(Random.Range(-4, -5), 0.5f).SetEase(Ease.InSine).OnComplete((() => FindObjectOfType<GameManager>().LoseGame()));
             transform.DORotate(new Vector3(0, 0, 360) * 3, 1f, RotateMode.FastBeyond360);
@@ -41,6 +45,8 @@ public class Knife : MonoBehaviour
 
         if (other.gameObject.CompareTag("Circle"))
         {
+            SoundManager.PlaySound(_circleSound);
+
             //Knife stop
             _moveTween.Pause();
             _moveTween.Kill();

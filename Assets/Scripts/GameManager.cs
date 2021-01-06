@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [Header("References and prefabs")]
     [SerializeField] private GameObject knifePrefab;
     [SerializeField] private GameObject circlePrefab;
+    [SerializeField] private GameObject bossPrefab;
     [Space]
     [SerializeField] private Transform startKnifePosition;
     [SerializeField] private Transform KnifeTargetPosition;
@@ -72,9 +73,18 @@ public class GameManager : MonoBehaviour
 
     private void CreateMovingCircle()
     {
-        var circle = Instantiate(circlePrefab, startCirclePosition);
+        GameObject circle;
+        
+        if (_stage % 5 == 0)
+        {
+            circle = Instantiate(bossPrefab, startCirclePosition);
+        }
+        else
+        {
+            circle = Instantiate(circlePrefab, startCirclePosition);
+        }
+        
         circle.transform.DOMove(CircleTargetPosition.position, 0.15f).OnComplete((() => _circleLoad = true));
-
         _activeCircle = circle.GetComponent<MovingCircle>();
 
         if (_levelSetup.GetLevelInfo(_currentLevel).GetOrangeChance()) _activeCircle.CreateOrange();

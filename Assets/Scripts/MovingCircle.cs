@@ -7,7 +7,6 @@ using Random = UnityEngine.Random;
 
 public class MovingCircle : MonoBehaviour
 {
-    [SerializeField] private float moveSpeedTime = 3f;
     [SerializeField] private GameObject sliceCirclePrefab;
     [SerializeField] private GameObject orangePrefab;
     [SerializeField] private GameObject knifeObstaclePrefab;
@@ -15,14 +14,32 @@ public class MovingCircle : MonoBehaviour
 
     private List<int> _createPositions = new List<int>();
 
+    private float moveSpeedTime;
     private int _rotate;
 
    
     void Start()
     {
-        transform.DORotate(new Vector3(0, 0, 360f), moveSpeedTime, RotateMode.FastBeyond360).SetEase(Ease.Linear)
-            .SetLoops(-1, LoopType.Restart);
-        
+        GameManager gm = FindObjectOfType<GameManager>();
+        if (gm._stage % 5 == 0)
+        {
+            Sequence animBoss = DOTween.Sequence();
+
+            animBoss.Append(transform.DORotate(new Vector3(0, 0, Random.Range(100, 361)), Random.Range(1.5f, 2.5f), RotateMode.FastBeyond360).SetEase(Ease.InOutSine));
+            animBoss.Append(transform.DORotate(new Vector3(0, 0, Random.Range(0, 10)), Random.Range(0.5f, 1.5f), RotateMode.FastBeyond360).SetEase(Ease.InOutSine));
+            animBoss.Append(transform.DORotate(new Vector3(0, 0, Random.Range(250, 600)), Random.Range(1.5f, 3f), RotateMode.FastBeyond360).SetEase(Ease.InOutSine));
+            animBoss.Append(transform.DORotate(new Vector3(0, 0, Random.Range(600, 1000)), Random.Range(1.5f, 2f), RotateMode.FastBeyond360).SetEase(Ease.InOutSine));
+            animBoss.Append(transform.DORotate(new Vector3(0, 0, Random.Range(0, 10)), Random.Range(0.5f, 1.5f), RotateMode.FastBeyond360).SetEase(Ease.InOutSine));
+
+            animBoss.SetLoops(-1, LoopType.Yoyo);
+        }
+        else
+        {
+            moveSpeedTime = Random.Range(2f, 3f);
+            transform.DORotate(new Vector3(0, 0, 360f), moveSpeedTime, RotateMode.FastBeyond360).SetEase(Ease.Linear)
+                .SetLoops(-1, LoopType.Restart);
+        }
+
         _rotate = Random.Range(0, 361);
     }
 
