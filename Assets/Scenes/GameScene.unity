@@ -1926,7 +1926,6 @@ MonoBehaviour:
   bossPrefab:
   - {fileID: 5135914759578062932, guid: 9852261bfd8a972418f581a24a726738, type: 3}
   - {fileID: 5135914759578062932, guid: 3c45fba6ceec5c7499d8c86a4be914b8, type: 3}
-  - {fileID: 5135914759578062932, guid: 21cd0a897b374754e991ea61865cf399, type: 3}
   startKnifePosition: {fileID: 1505528519}
   KnifeTargetPosition: {fileID: 1534795552}
   startCirclePosition: {fileID: 1897245651}
