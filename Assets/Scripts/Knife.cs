@@ -7,11 +7,15 @@ using Random = UnityEngine.Random;
 
 public class Knife : MonoBehaviour
 {
+    [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private float targetPosition;
     [SerializeField] private float durationFly;
     [SerializeField] private GameObject _effectKnife;
     [SerializeField] private AudioClip _knifeSound;
     [SerializeField] private AudioClip _circleSound;
+    [Space]
+    [SerializeField] private KnifeSetup _knifeSetup;
+    
 
     private PolygonCollider2D _collider2D;
         
@@ -20,6 +24,8 @@ public class Knife : MonoBehaviour
     private void Start()
     {
         _collider2D = GetComponent<PolygonCollider2D>();
+
+        GetCurrentKnifeType();
     }
 
     public void Launch()
@@ -63,6 +69,11 @@ public class Knife : MonoBehaviour
             FindObjectOfType<GameManager>().HitTarget();
             Destroy(this);
         }
+    }
+
+    private void GetCurrentKnifeType()
+    {
+        _spriteRenderer.sprite = _knifeSetup.GetKnifeSprite();
     }
 
     

@@ -25,17 +25,32 @@ public class MovingCircle : MonoBehaviour
         {
             Sequence animBoss = DOTween.Sequence();
 
-            animBoss.Append(transform.DORotate(new Vector3(0, 0, Random.Range(100, 361)), Random.Range(1.5f, 2.5f), RotateMode.FastBeyond360).SetEase(Ease.InOutSine));
-            animBoss.Append(transform.DORotate(new Vector3(0, 0, Random.Range(0, 10)), Random.Range(0.5f, 1.5f), RotateMode.FastBeyond360).SetEase(Ease.InOutSine));
-            animBoss.Append(transform.DORotate(new Vector3(0, 0, Random.Range(250, 600)), Random.Range(1.5f, 3f), RotateMode.FastBeyond360).SetEase(Ease.InOutSine));
-            animBoss.Append(transform.DORotate(new Vector3(0, 0, Random.Range(600, 1000)), Random.Range(1.5f, 2f), RotateMode.FastBeyond360).SetEase(Ease.InOutSine));
-            animBoss.Append(transform.DORotate(new Vector3(0, 0, Random.Range(0, 10)), Random.Range(0.5f, 1.5f), RotateMode.FastBeyond360).SetEase(Ease.InOutSine));
+            var rand = Random.Range(0, 2);
+            if (rand == 0)
+            {
+                animBoss.Append(transform.DORotate(new Vector3(0, 0, Random.Range(100, 361)), Random.Range(1.5f, 2.5f),
+                    RotateMode.FastBeyond360).SetEase(Ease.InOutSine));
+                animBoss.Append(transform.DORotate(new Vector3(0, 0, Random.Range(0, 10)), Random.Range(0.5f, 1.5f),
+                    RotateMode.FastBeyond360).SetEase(Ease.InOutSine));
+                animBoss.Append(transform.DORotate(new Vector3(0, 0, Random.Range(250, 600)), Random.Range(1.5f, 3f),
+                    RotateMode.FastBeyond360).SetEase(Ease.InOutSine));
+                animBoss.Append(transform.DORotate(new Vector3(0, 0, Random.Range(600, 1000)), Random.Range(1.5f, 2f),
+                    RotateMode.FastBeyond360).SetEase(Ease.InOutSine));
+                animBoss.Append(transform.DORotate(new Vector3(0, 0, Random.Range(0, 10)), Random.Range(0.5f, 1.5f),
+                    RotateMode.FastBeyond360).SetEase(Ease.InOutSine));
+            }
+            else
+            {
+                animBoss.Append(transform.DORotate(new Vector3(0, 0, Random.Range(301, 601)), Random.Range(1.5f, 2.5f),
+                    RotateMode.FastBeyond360).SetEase(Ease.InOutSine));
+                animBoss.AppendInterval(0.2f);
+            }
 
             animBoss.SetLoops(-1, LoopType.Yoyo);
         }
         else
         {
-            moveSpeedTime = Random.Range(2f, 3f);
+            moveSpeedTime = Random.Range(2.5f, 3f);
             transform.DORotate(new Vector3(0, 0, 360f), moveSpeedTime, RotateMode.FastBeyond360).SetEase(Ease.Linear)
                 .SetLoops(-1, LoopType.Restart);
         }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class RestartUI : MonoBehaviour
@@ -12,11 +13,15 @@ public class RestartUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI allOrangesText;
     [SerializeField] private Button restartButton;
     [SerializeField] private Button continueButton;
+    [SerializeField] private Button backToMainMenuButton;
+    [SerializeField] private GameObject texts;
+    [SerializeField] private GameObject buttons;
 
     private void Start()
     {
         continueButton.onClick.AddListener(ContinueGameButton);
         restartButton.onClick.AddListener(RestartButton);
+        backToMainMenuButton.onClick.AddListener(BackToMainMenu);
     }
 
     private void OnEnable()
@@ -39,12 +44,23 @@ public class RestartUI : MonoBehaviour
 
     private void RestartButton()
     {
-        GameManager.RestartGame();
+        texts.GetComponent<RectTransform>().DOLocalMoveY(1600, 0.5f).SetEase(Ease.InSine);
+        buttons.GetComponent<RectTransform>().DOLocalMoveX(-1400, 0.5f).SetEase(Ease.InSine).OnComplete((() => GameManager.RestartGame()));
+    }
+
+    private void BackToMainMenu()
+    {
+        texts.GetComponent<RectTransform>().DOLocalMoveY(1600, 0.5f).SetEase(Ease.InSine);
+        buttons.GetComponent<RectTransform>().DOLocalMoveX(-1400, 0.5f).SetEase(Ease.InSine).OnComplete((() => SceneManager.LoadScene("MainMenu")));
     }
 
     private void ContinueGameButton()
     {
-        var uiManager = FindObjectOfType<UIManager>();
-        uiManager.ContinueGame();
+        texts.GetComponent<RectTransform>().DOLocalMoveY(1600, 0.5f).SetEase(Ease.InSine);
+        buttons.GetComponent<RectTransform>().DOLocalMoveX(-1400, 0.5f).SetEase(Ease.InSine).OnComplete((() =>
+            {
+                var uiManager = FindObjectOfType<UIManager>();
+                uiManager.ContinueGame();
+            }));
     }
 }

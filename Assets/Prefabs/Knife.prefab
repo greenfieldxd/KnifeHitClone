@@ -97,11 +97,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63b97540152af544c96bcdc3aa878f6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spriteRenderer: {fileID: 9021313186391847096}
   targetPosition: 0
-  durationFly: 0.2
+  durationFly: 0.18
   _effectKnife: {fileID: 7255580438491753110, guid: a1308a041db843f4599a976e5770ba11, type: 3}
   _knifeSound: {fileID: 8300000, guid: 65f00351939ee79408647c7bf1d53ae4, type: 3}
   _circleSound: {fileID: 8300000, guid: 32b2714ddebd2494f8bd256b656c083d, type: 3}
+  _knifeSetup: {fileID: 11400000, guid: 6b40666f0f6517047a8accb836eaba3e, type: 2}
 --- !u!50 &5150883318472339435
 Rigidbody2D:
   serializedVersion: 4

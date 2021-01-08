@@ -15,11 +15,11 @@ MonoBehaviour:
   _levels:
   - levelsKnifes: 6
     orangeChance: 25
-  - levelsKnifes: 8
+  - levelsKnifes: 7
     orangeChance: 25
-  - levelsKnifes: 9
+  - levelsKnifes: 8
     orangeChance: 25
   - levelsKnifes: 10
     orangeChance: 25
-  - levelsKnifes: 12
+  - levelsKnifes: 8
     orangeChance: 25

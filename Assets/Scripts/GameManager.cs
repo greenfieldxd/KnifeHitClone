@@ -7,6 +7,7 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class GameManager : MonoBehaviour
     [Header("References and prefabs")]
     [SerializeField] private GameObject knifePrefab;
     [SerializeField] private GameObject circlePrefab;
-    [SerializeField] private GameObject bossPrefab;
+    [SerializeField] private GameObject[] bossPrefab;
     [Space]
     [SerializeField] private Transform startKnifePosition;
     [SerializeField] private Transform KnifeTargetPosition;
@@ -66,7 +67,7 @@ public class GameManager : MonoBehaviour
     private void CreateKnife()
     {
         var knife = Instantiate(knifePrefab, startKnifePosition);
-        knife.transform.DOMove(KnifeTargetPosition.position, 0.15f).OnComplete((() => _canLaunch = true));
+        knife.transform.DOMove(KnifeTargetPosition.position, 0.1f).OnComplete((() => _canLaunch = true));
         
         _activeKnife = knife.GetComponent<Knife>();
     }
@@ -77,14 +78,14 @@ public class GameManager : MonoBehaviour
         
         if (_stage % 5 == 0)
         {
-            circle = Instantiate(bossPrefab, startCirclePosition);
+            circle = Instantiate(bossPrefab[Random.Range(0, bossPrefab.Length)], startCirclePosition);
         }
         else
         {
             circle = Instantiate(circlePrefab, startCirclePosition);
         }
         
-        circle.transform.DOMove(CircleTargetPosition.position, 0.15f).OnComplete((() => _circleLoad = true));
+        circle.transform.DOMove(CircleTargetPosition.position, 0.1f).OnComplete((() => _circleLoad = true));
         _activeCircle = circle.GetComponent<MovingCircle>();
 
         if (_levelSetup.GetLevelInfo(_currentLevel).GetOrangeChance()) _activeCircle.CreateOrange();
@@ -103,7 +104,7 @@ public class GameManager : MonoBehaviour
             }
             
             _activeKnife.Launch();
-            Invoke(nameof(CreateKnife), 0.2f);
+            Invoke(nameof(CreateKnife), 0.115f);
         }
     }
     
@@ -123,7 +124,7 @@ public class GameManager : MonoBehaviour
     {
         _orangeCount += count;
         
-        DataManager.SetOrangeScore(_orangeCount);
+        DataManager.SetOranges(_orangeCount);
         _uiManager.UpdateOrangeScore(_orangeCount);
     }
 
@@ -131,7 +132,7 @@ public class GameManager : MonoBehaviour
     {
         _orangeCount -= count;
         
-        DataManager.SetOrangeScore(_orangeCount);
+        DataManager.SetOranges(_orangeCount);
         _uiManager.UpdateOrangeScore(_orangeCount);
     }
     
