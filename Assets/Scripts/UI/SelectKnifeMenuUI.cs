@@ -39,7 +39,10 @@ public class SelectKnifeMenuUI : MonoBehaviour
     {
         _currentIdElement = 0;
         _currentKnifeElement = _knifeTypeElements[_currentIdElement];
+
+
         UpdateArrows();
+        UpdateSelectButton();
         UpdateKnifeTypeImage();
     }
 
@@ -48,6 +51,8 @@ public class SelectKnifeMenuUI : MonoBehaviour
         if (_canPress && _currentKnifeElement.IsKnifeOpened())
         {
             DataManager.SetKnifeType(_currentKnifeElement.GetKnifeType());
+
+            UpdateSelectButton();
             BackToMainMenu();
         }
         else if (!_currentKnifeElement.IsKnifeOpened() && _currentKnifeElement.GetPrice() <= DataManager.GetAllOranges())
@@ -117,7 +122,12 @@ public class SelectKnifeMenuUI : MonoBehaviour
 
     private void UpdateSelectButton()
     {
-        if (_currentKnifeElement.IsKnifeOpened())
+        if (_currentKnifeElement.GetKnifeType() == DataManager.GetKnifeType())
+        {
+            _selectButtonText.text = "Current knife";
+            selectKnifeButton.interactable = false;
+        }
+        else if (_currentKnifeElement.IsKnifeOpened())
         {
             _selectButtonText.text = "Select";
             selectKnifeButton.interactable = true;
@@ -129,7 +139,7 @@ public class SelectKnifeMenuUI : MonoBehaviour
         }
         else if (!_currentKnifeElement.IsKnifeOpened() && _currentKnifeElement.GetPrice() >= DataManager.GetAllOranges())
         {
-            _selectButtonText.text = "No oranges";
+            _selectButtonText.text = "Need " + _currentKnifeElement.GetPrice() + " oranges";
             selectKnifeButton.interactable = false;
         }
     }

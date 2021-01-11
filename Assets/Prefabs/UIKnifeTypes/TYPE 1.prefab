@@ -59,8 +59,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _knifeType: 1
-  _knifeSprite: {fileID: 21300000, guid: 2a2fbfa93033d254a8f6c726d31eb6bc, type: 3}
-  _price: 20
+  _knifeSprite: {fileID: 21300000, guid: ac055842c6a721247adb11ad1f2a8f56, type: 3}
+  _price: 10
 --- !u!114 &4107020007608384342
 MonoBehaviour:
   m_ObjectHideFlags: 0

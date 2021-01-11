@@ -25,8 +25,7 @@ public class GameManager : MonoBehaviour
 
     [Header("LevelsSetup")] 
     [SerializeField] private LevelSetup _levelSetup;
-
-    [SerializeField] private int maxDifficult = 12;
+    [SerializeField] private int maxDifficult;
 
     private Knife _activeKnife;
     private MovingCircle _activeCircle;

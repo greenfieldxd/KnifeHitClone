@@ -15,15 +15,23 @@ MonoBehaviour:
   _knifeSprites:
   - _sprite: {fileID: 21300000, guid: 83d670e8493ec1442bf5bbcacfe0ad4f, type: 3}
     _knifeType: 0
-  - _sprite: {fileID: 21300000, guid: 2a2fbfa93033d254a8f6c726d31eb6bc, type: 3}
+  - _sprite: {fileID: 21300000, guid: ac055842c6a721247adb11ad1f2a8f56, type: 3}
     _knifeType: 1
-  - _sprite: {fileID: 21300000, guid: 1ffc2a584740d9746b9d8999a3f6843c, type: 3}
+  - _sprite: {fileID: 21300000, guid: f2f41e49aacf60141a61e0f73c4b0526, type: 3}
     _knifeType: 2
-  - _sprite: {fileID: 21300000, guid: f57675bd11f1d2243aeed1c006d99176, type: 3}
+  - _sprite: {fileID: 21300000, guid: 02901a01b443dfa46a18fbcdca258301, type: 3}
     _knifeType: 3
-  - _sprite: {fileID: 21300000, guid: e72e6d6bdf7f912478281738729bb85a, type: 3}
+  - _sprite: {fileID: 21300000, guid: 8d354122e59e8474aa8918797a267141, type: 3}
     _knifeType: 4
-  - _sprite: {fileID: 21300000, guid: 4ceb8a577dfb7114e885b1897cd21e8b, type: 3}
+  - _sprite: {fileID: 21300000, guid: c4ecc7e946a21284581aa6ba02d33b81, type: 3}
     _knifeType: 5
   - _sprite: {fileID: 21300000, guid: 250db9a1d54cf994080f724fe9b4ad55, type: 3}
     _knifeType: 6
+  - _sprite: {fileID: 21300000, guid: 50aeb67f67cf9d048ad2a8ac2df6390b, type: 3}
+    _knifeType: 7
+  - _sprite: {fileID: 21300000, guid: 9f92f7a9633213649a67734b7ea6900b, type: 3}
+    _knifeType: 8
+  - _sprite: {fileID: 21300000, guid: 40b353e8ce9a83841ab170ea29f4a112, type: 3}
+    _knifeType: 9
+  - _sprite: {fileID: 21300000, guid: 2d1fb473fe956a24e836d7f324058a42, type: 3}
+    _knifeType: 10

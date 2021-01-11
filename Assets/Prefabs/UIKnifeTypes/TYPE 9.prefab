@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 825905832633118053}
   - component: {fileID: 4107020007608384342}
   m_Layer: 5
-  m_Name: TYPE 6
+  m_Name: TYPE 9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,9 +58,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3250dbf193661014095c92c13a1193f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _knifeType: 6
-  _knifeSprite: {fileID: 21300000, guid: 250db9a1d54cf994080f724fe9b4ad55, type: 3}
-  _price: 60
+  _knifeType: 9
+  _knifeSprite: {fileID: 21300000, guid: 40b353e8ce9a83841ab170ea29f4a112, type: 3}
+  _price: 90
 --- !u!114 &4107020007608384342
 MonoBehaviour:
   m_ObjectHideFlags: 0

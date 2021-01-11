@@ -1931,7 +1931,7 @@ MonoBehaviour:
   startCirclePosition: {fileID: 1897245651}
   CircleTargetPosition: {fileID: 638004247}
   _levelSetup: {fileID: 11400000, guid: ff9ae54f3d3ac7a45867fc4b7310bd37, type: 2}
-  maxDifficult: 12
+  maxDifficult: 10
 --- !u!4 &784313963
 Transform:
   m_ObjectHideFlags: 0

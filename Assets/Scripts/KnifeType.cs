@@ -11,4 +11,8 @@ public enum KnifeType
     TYPE_4,
     TYPE_5,
     TYPE_6,
+    TYPE_7,
+    TYPE_8,
+    TYPE_9,
+    TYPE_10,
 }

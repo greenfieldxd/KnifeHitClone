@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 public class Knife : MonoBehaviour
@@ -39,19 +40,21 @@ public class Knife : MonoBehaviour
         if (other.gameObject.CompareTag("Knife"))
         {
             Instantiate(_effectKnife);
-            SoundManager.PlaySound(_knifeSound);
-            
-            transform.DOMoveY(-8, 0.5f).SetEase(Ease.InSine);
-            transform.DOMoveX(Random.Range(-4, -5), 0.5f).SetEase(Ease.InSine).OnComplete((() => FindObjectOfType<GameManager>().LoseGame()));
-            transform.DORotate(new Vector3(0, 0, 360) * 3, 1f, RotateMode.FastBeyond360);
-            
             Vibration.Vibrate(30);
-            Destroy(this);
-        }
+            SoundManager.PlaySound(_knifeSound);
 
-        if (other.gameObject.CompareTag("Circle"))
+            transform.DORotate(new Vector3(0, 0, 360) * 3, 1f, RotateMode.FastBeyond360);
+            transform.DOMoveY(-8, 0.5f).SetEase(Ease.InSine);
+            transform.DOMoveX(Random.Range(-4, -5), 0.5f).SetEase(Ease.InSine).OnComplete((() => 
+                {
+                    FindObjectOfType<GameManager>().LoseGame();
+                    Destroy(gameObject);
+                }));
+        }
+        else if (other.gameObject.CompareTag("Circle"))
         {
             SoundManager.PlaySound(_circleSound);
+            Vibration.Vibrate(30);
 
             //Knife stop
             _moveTween.Pause();
@@ -61,9 +64,8 @@ public class Knife : MonoBehaviour
             transform.SetParent(other.transform);
             _collider2D.isTrigger = true;
             
-            //ShakeCircle and vibrate
+            //ShakeCircle\
             other.GetComponent<MovingCircle>().ShakeCircle();
-            Vibration.Vibrate(30);
 
             //Hit target
             FindObjectOfType<GameManager>().HitTarget();
