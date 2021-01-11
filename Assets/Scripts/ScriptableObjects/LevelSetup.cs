@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 [CreateAssetMenu(fileName = "LevelsSetup", menuName = "App/LevelsSetup", order = 1)]
 public class LevelSetup : ScriptableObject
 {
+    [SerializeField] private int maxDifficult;
     [SerializeField] private List<Level> _levels;
 
 
@@ -20,6 +21,10 @@ public class LevelSetup : ScriptableObject
         return _levels.Count;
     }
     
+    public int GetMaxDifficult()
+    {
+        return maxDifficult;
+    }
     
     
     [Serializable]

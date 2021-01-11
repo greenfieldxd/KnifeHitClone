@@ -19,12 +19,14 @@ public class Knife : MonoBehaviour
     
 
     private PolygonCollider2D _collider2D;
+    private Rigidbody2D _rigidbody2D;
         
     private Tween _moveTween;
 
     private void Start()
     {
         _collider2D = GetComponent<PolygonCollider2D>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
 
         GetCurrentKnifeType();
     }
@@ -39,13 +41,16 @@ public class Knife : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Knife"))
         {
+            _collider2D.enabled = false;
+            Destroy(_collider2D);
+
             Instantiate(_effectKnife);
             Vibration.Vibrate(30);
             SoundManager.PlaySound(_knifeSound);
 
-            transform.DORotate(new Vector3(0, 0, 360) * 3, 1f, RotateMode.FastBeyond360);
+            transform.DORotate(new Vector3(0, 0, 360) * 1, 0.5f, RotateMode.FastBeyond360);
             transform.DOMoveY(-8, 0.5f).SetEase(Ease.InSine);
-            transform.DOMoveX(Random.Range(-4, -5), 0.5f).SetEase(Ease.InSine).OnComplete((() => 
+            transform.DOMoveX(Random.Range(-4, -5), 0.6f).SetEase(Ease.InSine).OnComplete((() => 
                 {
                     FindObjectOfType<GameManager>().LoseGame();
                     Destroy(gameObject);
@@ -63,6 +68,7 @@ public class Knife : MonoBehaviour
             //set knife parent as circle and set knife trigger
             transform.SetParent(other.transform);
             _collider2D.isTrigger = true;
+            Destroy(_rigidbody2D);
             
             //ShakeCircle\
             other.GetComponent<MovingCircle>().ShakeCircle();

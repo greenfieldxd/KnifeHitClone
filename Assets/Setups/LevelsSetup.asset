@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89c3655f4a08514408853bb308d72ad7, type: 3}
   m_Name: LevelsSetup
   m_EditorClassIdentifier: 
+  maxDifficult: 10
   _levels:
   - levelsKnifes: 6
     orangeChance: 25

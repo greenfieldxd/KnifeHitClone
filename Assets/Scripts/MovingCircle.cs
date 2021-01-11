@@ -12,8 +12,6 @@ public class MovingCircle : MonoBehaviour
     [SerializeField] private GameObject knifeObstaclePrefab;
     [SerializeField] private Animation flashCircleEffect;
 
-    private List<int> _createPositions = new List<int>();
-
     private float moveSpeedTime;
     private int _rotate;
 
@@ -21,6 +19,7 @@ public class MovingCircle : MonoBehaviour
     void Start()
     {
         GameManager gm = FindObjectOfType<GameManager>();
+
         if (gm._stage % 5 == 0)
         {
             Sequence animBoss = DOTween.Sequence();
