@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using YG;
 
 public class RestartUI : MonoBehaviour
 {
@@ -19,16 +20,18 @@ public class RestartUI : MonoBehaviour
 
     private void Start()
     {
-        continueButton.onClick.AddListener(ContinueGameButton);
+        continueButton.onClick.AddListener(() => YandexGame.RewardVideoEvent(0));
         restartButton.onClick.AddListener(RestartButton);
         backToMainMenuButton.onClick.AddListener(BackToMainMenu);
+
+        YandexGame.CloseVideoEvent += ContinueGame;
     }
 
     private void OnEnable()
     {
         var gm = FindObjectOfType<GameManager>();
 
-        allOrangesText.text = "" + DataManager.GetAllOranges();
+        allOrangesText.text = "" + YandexGame.savesData.oranges;
         bestScoreText.text = "Score: " + gm._score + ". " + "Stage " + (gm._stage);
 
 
@@ -44,18 +47,30 @@ public class RestartUI : MonoBehaviour
 
     private void RestartButton()
     {
+        continueButton.interactable = false;
+        restartButton.interactable = false;
+        backToMainMenuButton.interactable = false;
+        
         texts.GetComponent<RectTransform>().DOLocalMoveY(1600, 0.5f).SetEase(Ease.InSine);
         buttons.GetComponent<RectTransform>().DOLocalMoveX(-1400, 0.5f).SetEase(Ease.InSine).OnComplete((() => GameManager.RestartGame()));
     }
 
     private void BackToMainMenu()
     {
+        continueButton.interactable = false;
+        restartButton.interactable = false;
+        backToMainMenuButton.interactable = false;
+        
         texts.GetComponent<RectTransform>().DOLocalMoveY(1600, 0.5f).SetEase(Ease.InSine);
         buttons.GetComponent<RectTransform>().DOLocalMoveX(-1400, 0.5f).SetEase(Ease.InSine).OnComplete((() => SceneManager.LoadScene("MainMenu")));
     }
 
-    private void ContinueGameButton()
+    private void ContinueGame()
     {
+        continueButton.interactable = false;
+        restartButton.interactable = false;
+        backToMainMenuButton.interactable = false;
+        
         texts.GetComponent<RectTransform>().DOLocalMoveY(1600, 0.5f).SetEase(Ease.InSine);
         buttons.GetComponent<RectTransform>().DOLocalMoveX(-1400, 0.5f).SetEase(Ease.InSine).OnComplete((() =>
             {

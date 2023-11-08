@@ -4,6 +4,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 
 public class SelectKnifeMenuUI : MonoBehaviour
 {
@@ -14,31 +15,31 @@ public class SelectKnifeMenuUI : MonoBehaviour
     [SerializeField] private GameObject selectIcon;
     [SerializeField] private GameObject selectText;
     [SerializeField] private GameObject selectedText;
+    [SerializeField] private GameObject adsText;
     [SerializeField] private GameObject priceIcon;
     [SerializeField] private TextMeshProUGUI priceText;
 
-    [Space]
-    [SerializeField] private GameObject _mainMenu;
+    [Space] [SerializeField] private GameObject _mainMenu;
     [SerializeField] private GameObject _selectMenu;
-    [Space]
-    [SerializeField] private Image _currentKnifeImage1;
+    [Space] [SerializeField] private Image _currentKnifeImage1;
     [SerializeField] private Image _currentKnifeImage2;
-    [Space] 
-    [SerializeField] private KnifeTypeUIElement[] _knifeTypeElements;
+    [Space] [SerializeField] private KnifeTypeUIElement[] _knifeTypeElements;
 
     private KnifeTypeUIElement _currentKnifeElement;
     private int _currentIdElement;
 
     private bool _canPress = true;
-    
+
     void OnEnable()
     {
         InitKnifes();
-        
+
         selectKnifeButton.onClick.AddListener(SelectKnife);
         rightArrowButton.onClick.AddListener(RightArrow);
         leftArrowButton.onClick.AddListener(LeftArrow);
         backToMainMenuButton.onClick.AddListener(BackToMainMenu);
+
+        YandexGame.CloseVideoEvent += OpenKnifeWithAds;
     }
 
     private void InitKnifes()
@@ -51,28 +52,56 @@ public class SelectKnifeMenuUI : MonoBehaviour
         UpdateSelectButton();
         UpdateKnifeTypeImage();
     }
-
+    
     private void SelectKnife()
     {
-        if (_canPress && _currentKnifeElement.IsKnifeOpened())
+        if (_canPress && IsKnifePurchased())
         {
-            DataManager.SetKnifeType(_currentKnifeElement.GetKnifeType());
+            YandexGame.savesData.knifeType = _currentKnifeElement.GetKnifeType();
+            YandexGame.SaveProgress();
 
             UpdateSelectButton();
             BackToMainMenu();
         }
-        else if (!_currentKnifeElement.IsKnifeOpened() && _currentKnifeElement.GetPrice() <= DataManager.GetAllOranges())
+        else if (!IsKnifePurchased() && _currentKnifeElement.OpenWithAds)
         {
-            DataManager.SetOranges(DataManager.GetAllOranges() - _currentKnifeElement.GetPrice());
-            DataManager.SetOpenStatusForKnife(_currentKnifeElement.GetKnifeType());
+            YandexGame.RewVideoShow(0);
+        }
+        else if (!IsKnifePurchased() && _currentKnifeElement.GetPrice() <= DataManager.GetAllOranges())
+        {
+            YandexGame.savesData.oranges -= _currentKnifeElement.GetPrice();
+            YandexGame.savesData.Purchase(_currentKnifeElement.GetKnifeType());
+            YandexGame.SaveProgress();
             UpdateSelectButton();
         }
     }
 
+    private void OpenKnifeWithAds()
+    {
+        YandexGame.savesData.Purchase(_currentKnifeElement.GetKnifeType());
+        YandexGame.SaveProgress();
+        UpdateSelectButton();
+    }
+
+    private bool IsKnifePurchased()
+    {
+        return YandexGame.savesData.IsKnifePurchased(_currentKnifeElement.GetKnifeType());
+    }
+
     private void BackToMainMenu()
     {
+        backToMainMenuButton.interactable = false;
+        selectKnifeButton.interactable = false;
+
         _mainMenu.SetActive(true);
-        _selectMenu.GetComponent<RectTransform>().DOLocalMoveY(2500, 0.5f).SetEase(Ease.InSine).OnComplete((() => _selectMenu.SetActive(false)));
+        _mainMenu.GetComponent<MainMenuUI>().UpdateUiText();
+
+        _selectMenu.GetComponent<RectTransform>().DOLocalMoveY(2500, 0.5f).SetEase(Ease.InSine).OnComplete((() =>
+        {
+            backToMainMenuButton.interactable = true;
+            selectKnifeButton.interactable = true;
+            _selectMenu.SetActive(false);
+        }));
         _mainMenu.GetComponent<RectTransform>().DOLocalMoveY(0, 0.5f).SetEase(Ease.InSine);
     }
 
@@ -80,7 +109,7 @@ public class SelectKnifeMenuUI : MonoBehaviour
     {
         if (_canPress)
         {
-            _canPress = false; 
+            _canPress = false;
             SetInteractableButtons(false);
 
             _currentIdElement--;
@@ -111,7 +140,7 @@ public class SelectKnifeMenuUI : MonoBehaviour
             leftArrowButton.interactable = false;
             rightArrowButton.interactable = true;
         }
-        
+
         if (_currentKnifeElement == _knifeTypeElements[_knifeTypeElements.Length - 1])
         {
             rightArrowButton.interactable = false;
@@ -128,35 +157,64 @@ public class SelectKnifeMenuUI : MonoBehaviour
 
     private void UpdateSelectButton()
     {
-        if (_currentKnifeElement.GetKnifeType().ToString() == DataManager.GetKnifeType())
+        if (_currentKnifeElement.GetKnifeType() == YandexGame.savesData.knifeType && IsKnifePurchased())
         {
             priceText.gameObject.SetActive(false);
             priceIcon.SetActive(false);
+            selectText.SetActive(false);
+            adsText.SetActive(false);
             selectedText.SetActive(true);
             selectIcon.SetActive(true);
             selectKnifeButton.interactable = false;
-            
         }
-        else if (_currentKnifeElement.IsKnifeOpened())
+        else if (IsKnifePurchased())
         {
-            selectText.SetActive(true);
-            selectedText.SetActive(false);
+            priceIcon.SetActive(false);
             priceText.gameObject.SetActive(false);
-            priceIcon.SetActive(false);    
+            selectedText.SetActive(false);
+            adsText.SetActive(false);
+            selectIcon.SetActive(false);
+            selectText.SetActive(true);
             selectKnifeButton.interactable = true;
         }
-        else if (!_currentKnifeElement.IsKnifeOpened() && _currentKnifeElement.GetPrice() <= DataManager.GetAllOranges())
+        else if (!IsKnifePurchased() && _currentKnifeElement.OpenWithAds)
         {
+            priceIcon.SetActive(false);
+            priceText.gameObject.SetActive(false);
             selectedText.SetActive(false);
+            selectIcon.SetActive(false);
+            selectText.SetActive(false);
+            adsText.SetActive(true);
+            selectKnifeButton.interactable = true;
+        }
+        else if (IsKnifePurchased() && _currentKnifeElement.OpenWithAds)
+        {
+            priceIcon.SetActive(false);
+            priceText.gameObject.SetActive(false);
             selectedText.SetActive(false);
+            selectIcon.SetActive(false);
+            adsText.SetActive(false);
+            selectText.SetActive(true);
+            selectKnifeButton.interactable = true;
+        }
+        else if (!IsKnifePurchased() && _currentKnifeElement.GetPrice() <= DataManager.GetAllOranges())
+        {
+            selectText.SetActive(false);
+            selectedText.SetActive(false);
+            adsText.SetActive(false);
+            selectIcon.SetActive(false);
             priceIcon.SetActive(true);
+            priceText.gameObject.SetActive(true);
             priceText.text = _currentKnifeElement.GetPrice().ToString();
             selectKnifeButton.interactable = true;
         }
-        else if (!_currentKnifeElement.IsKnifeOpened() && _currentKnifeElement.GetPrice() >= DataManager.GetAllOranges())
+        else if (!IsKnifePurchased() && _currentKnifeElement.GetPrice() >= DataManager.GetAllOranges())
         {
+            selectText.SetActive(false);
             selectedText.SetActive(false);
-            selectedText.SetActive(false);
+            adsText.SetActive(false);
+            selectIcon.SetActive(false);
+            priceText.gameObject.SetActive(true);
             priceIcon.SetActive(true);
             priceText.text = _currentKnifeElement.GetPrice().ToString();
             selectKnifeButton.interactable = false;
@@ -166,8 +224,9 @@ public class SelectKnifeMenuUI : MonoBehaviour
     private void MoveImage(float endPos)
     {
         Sequence moveAnim = DOTween.Sequence();
-        
-        moveAnim.Append(_currentKnifeImage1.GetComponent<RectTransform>().DOLocalMoveX(endPos, 0.2f).SetEase(Ease.InSine));
+
+        moveAnim.Append(_currentKnifeImage1.GetComponent<RectTransform>().DOLocalMoveX(endPos, 0.2f)
+            .SetEase(Ease.InSine));
         moveAnim.Append(_currentKnifeImage1.GetComponent<RectTransform>().DOLocalMoveX(-endPos, 0));
         moveAnim.AppendCallback(UpdateKnifeTypeImage);
         moveAnim.Append(_currentKnifeImage1.GetComponent<RectTransform>().DOLocalMoveX(0, 0.2f).SetEase(Ease.InSine));
@@ -178,8 +237,6 @@ public class SelectKnifeMenuUI : MonoBehaviour
             UpdateArrows();
             UpdateSelectButton();
         }));
-
-
     }
 
     private void SetInteractableButtons(bool status)

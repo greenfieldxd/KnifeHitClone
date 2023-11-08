@@ -3,6 +3,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 
 public class UIManager : MonoBehaviour
 {
@@ -58,9 +59,9 @@ public class UIManager : MonoBehaviour
         scoreText.text = "" + newScore;
     }
     
-    public void UpdateOrangeScore(int newOrangeScore)
+    public void UpdateOrangeScore()
     {
-        orangeText.text = "" + newOrangeScore;
+        orangeText.text = "" + YandexGame.savesData.oranges;
 
         Sequence anim = DOTween.Sequence();
         anim.Append(orangeIcon.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.2f).SetEase(Ease.InSine));

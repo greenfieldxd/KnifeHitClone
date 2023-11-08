@@ -7,6 +7,7 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using YG;
 using Random = UnityEngine.Random;
 
 public class GameManager : Singleton<GameManager>
@@ -16,13 +17,12 @@ public class GameManager : Singleton<GameManager>
     [Header("References and prefabs")]
     [SerializeField] private GameObject knifePrefab;
     [SerializeField] private GameObject circlePrefab;
-    [SerializeField] private GameObject[] bossPrefab;
     [Space]
     [SerializeField] private Transform startKnifePosition;
     [SerializeField] private Transform KnifeTargetPosition;
     [SerializeField] private Transform startCirclePosition;
     [SerializeField] private Transform CircleTargetPosition;
-
+    
     [Header("LevelsSetup")] 
     [SerializeField] private LevelSetup _levelSetup;
 
@@ -35,7 +35,6 @@ public class GameManager : Singleton<GameManager>
     public int _score { get; private set; }
     public int _stage { get; private set; }
     
-    private int _orangeCount;
     private bool _canLaunch = true;
     private bool _circleLoad = false;
 
@@ -45,48 +44,39 @@ public class GameManager : Singleton<GameManager>
         InitGame();
     }
 
-    public void InitGame()
+    private void InitGame()
     {
         _knifesInCircle = 0;
         _currentLevel = 0;
-        _stage = 1;
         _score = 0;
+        _stage = YandexGame.savesData.currentStage;
 
-        CreateKnife();
+        CreateKnife(1f);
         CreateMovingCircle();
         
-        LoadAllOranges();
+        _uiManager.UpdateOrangeScore();
         _uiManager.CreateKnifesPanel(_levelSetup.GetLevelInfo(_currentLevel).GetLevelKnifesCount());
         _uiManager.UpdateStage(_stage);
     }
     
     
 
-    private void CreateKnife()
+    private void CreateKnife(float delay)
     {
-        var knife = Instantiate(knifePrefab, startKnifePosition);
-        knife.transform.DOMove(KnifeTargetPosition.position, 0.1f).OnComplete((() => _canLaunch = true));
+        var knife = Instantiate(knifePrefab, startKnifePosition.position, Quaternion.identity);
+        knife.transform.DOMove(KnifeTargetPosition.position, 0.1f).SetDelay(delay).OnComplete(() => _canLaunch = true);
         
         _activeKnife = knife.GetComponent<Knife>();
     }
 
     private void CreateMovingCircle()
     {
-        GameObject circle;
+        var circle = Instantiate(circlePrefab, startCirclePosition.position, Quaternion.identity);
         
-        if (_stage % 5 == 0)
-        {
-            circle = Instantiate(bossPrefab[Random.Range(0, bossPrefab.Length)], startCirclePosition.position, Quaternion.identity);
-        }
-        else
-        {
-            circle = Instantiate(circlePrefab, startCirclePosition.position, Quaternion.identity);
-        }
-        
-        circle.transform.DOMove(CircleTargetPosition.position, 0.1f).OnComplete((() => _circleLoad = true));
+        circle.transform.DOMove(CircleTargetPosition.position, 0.5f).SetDelay(1f).OnComplete((() => _circleLoad = true));
         ActiveCircle = circle.GetComponent<MovingCircle>();
 
-        ActiveCircle.SelectSprite(0);
+        ActiveCircle.SelectSprite(0, _stage);
         //ActiveCircle.CreateKnifeObstacles();
         //if (_levelSetup.GetLevelInfo(_currentLevel).GetOrangeChance()) ActiveCircle.CreateOrange();
     }
@@ -96,14 +86,8 @@ public class GameManager : Singleton<GameManager>
         if (_canLaunch && _circleLoad)
         {
             _canLaunch = false;
-            
-            if (_activeKnife == null)
-            {
-                CreateKnife();
-            }
-            
             _activeKnife.Launch();
-            Invoke(nameof(CreateKnife), 0.115f);
+            CreateKnife(0);
         }
     }
     
@@ -111,9 +95,9 @@ public class GameManager : Singleton<GameManager>
     {
         _score += count;
 
-        if (_score > DataManager.GetBestScore())
+        if (_score > YandexGame.savesData.bestScore)
         {
-            DataManager.SetBestScore(_score);
+            YandexGame.savesData.bestScore = _score;
         }
         
         _uiManager.UpdateScore(_score);
@@ -121,26 +105,18 @@ public class GameManager : Singleton<GameManager>
 
     public void AddOrange(int count)
     {
-        _orangeCount += count;
-        
-        DataManager.SetOranges(_orangeCount);
-        _uiManager.UpdateOrangeScore(_orangeCount);
+        YandexGame.savesData.oranges += count;
+        YandexGame.SaveProgress();
+        _uiManager.UpdateOrangeScore();
     }
 
     public void SpendOranges(int count)
     {
-        _orangeCount -= count;
-        
-        DataManager.SetOranges(_orangeCount);
-        _uiManager.UpdateOrangeScore(_orangeCount);
+        YandexGame.savesData.oranges -= count;
+        YandexGame.SaveProgress();
+        _uiManager.UpdateOrangeScore();
     }
-    
-    private void LoadAllOranges()
-    {
-        _orangeCount = DataManager.GetAllOranges();
-        _uiManager.UpdateOrangeScore(_orangeCount);
-    }
-    
+
     private void UpdateUI()
     {
         _uiManager.ActivateHitKnife(_knifesInCircle);

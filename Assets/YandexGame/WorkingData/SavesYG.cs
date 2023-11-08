@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 namespace YG
 {
     [System.Serializable]
@@ -18,9 +20,22 @@ namespace YG
 
         // Ваши сохранения
 
-        // ...
-
-        // Поля (сохранения) можно удалять и создавать новые. При обновлении игры сохранения ломаться не должны
+        public int bestScore;
+        public int currentStage = 1;
+        public int oranges;
+        public KnifeType knifeType = KnifeType.DEFAULT;
+        public List<KnifeType> purchasedKnives = new List<KnifeType>();
+        
+        public bool IsKnifePurchased(KnifeType type)
+        {
+            if (type == KnifeType.DEFAULT) return true;
+            return purchasedKnives.Contains(type);
+        }
+    
+        public void Purchase(KnifeType type)
+        {
+            purchasedKnives.Add(type);
+        }
 
 
         // Вы можете выполнить какие то действия при загрузке сохранений

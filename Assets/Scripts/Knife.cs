@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 public class Knife : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer _spriteRenderer;
+    [SerializeField] private SpriteRenderer _spriteRenderer2;
     [SerializeField] private GameObject _effectKnife;
     [SerializeField] private AudioClip _knifeSound;
     [SerializeField] private AudioClip _circleSound;
@@ -104,6 +105,7 @@ public class Knife : MonoBehaviour
     private void GetCurrentKnifeType()
     {
         _spriteRenderer.sprite = _knifeSetup.GetKnifeSprite();
+        _spriteRenderer2.sprite = _knifeSetup.GetKnifeSprite2();
     }
 }
     

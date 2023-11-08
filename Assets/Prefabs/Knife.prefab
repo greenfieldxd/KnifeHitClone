@@ -112,7 +112,7 @@ Transform:
   m_GameObject: {fileID: 9021313186391847097}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1134628044265836176}
@@ -184,6 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 9021313186391847096}
+  _spriteRenderer2: {fileID: 3440634065219092637}
   _effectKnife: {fileID: 7255580438491753110, guid: a1308a041db843f4599a976e5770ba11, type: 3}
   _knifeSound: {fileID: 8300000, guid: 65f00351939ee79408647c7bf1d53ae4, type: 3}
   _circleSound: {fileID: 8300000, guid: 32b2714ddebd2494f8bd256b656c083d, type: 3}

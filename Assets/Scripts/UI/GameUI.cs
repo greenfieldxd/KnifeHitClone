@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using YG;
 
 public class GameUI : MonoBehaviour
 {
@@ -14,9 +15,9 @@ public class GameUI : MonoBehaviour
         
         stageText.text = "Stage " + stage;
 
-        if (stage > DataManager.GetBestStage())
+        if (stage > YandexGame.savesData.currentStage)
         {
-            DataManager.SetBestStage(stage);
+            YandexGame.savesData.currentStage = stage;
         }
     }
 

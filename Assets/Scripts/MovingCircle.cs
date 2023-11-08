@@ -9,12 +9,12 @@ public class MovingCircle : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Sprite[] sprites;
-    [SerializeField] private GameObject sliceCirclePrefab;
+    [SerializeField] private Sprite[] bossSprites;
     [SerializeField] private GameObject orangePrefab;
     [SerializeField] private GameObject knifeObstaclePrefab;
     [SerializeField] private Color flashColor;
 
-    private float moveSpeedTime;
+    private float _moveSpeedTime;
     private int _rotate;
 
    
@@ -51,9 +51,9 @@ public class MovingCircle : MonoBehaviour
         }
         else
         {
-            moveSpeedTime = Random.Range(2.5f, 3f);
+            _moveSpeedTime = Random.Range(2.5f, 3f);
            
-            transform.DORotate(new Vector3(0, 0, 360f), moveSpeedTime, RotateMode.FastBeyond360)
+            transform.DORotate(new Vector3(0, 0, 360f), _moveSpeedTime, RotateMode.FastBeyond360)
                 .SetEase(Ease.Linear)
                 .SetLoops(-1, LoopType.Restart);
         }
@@ -83,9 +83,10 @@ public class MovingCircle : MonoBehaviour
         }
     }
 
-    public void SelectSprite(int id)
+    public void SelectSprite(int id, int stage)
     {
-        spriteRenderer.sprite = sprites[id];
+        spriteRenderer.sprite = stage % 5 == 0 ? bossSprites[Random.Range(0, bossSprites.Length)] : sprites[id];
+        
         var coll = gameObject.AddComponent<PolygonCollider2D>();
         coll.isTrigger = true;
     }
@@ -101,7 +102,6 @@ public class MovingCircle : MonoBehaviour
 
     public void DestroyCircle()
     {
-        Instantiate(sliceCirclePrefab);
         Destroy(gameObject);
     }
 }

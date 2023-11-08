@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using YG;
 
 
 [CreateAssetMenu(fileName = "KnifeSetup", menuName = "App/KnifeSetup", order = 2)]
@@ -12,8 +13,14 @@ public class KnifeSetup : ScriptableObject
 
     public Sprite GetKnifeSprite()
     {
-        var currentKnifeType = _knifeSprites.Find(item => item.KnifeType.ToString() == DataManager.GetKnifeType());
+        var currentKnifeType = _knifeSprites.Find(item => item.KnifeType == YandexGame.savesData.knifeType);
         return currentKnifeType.Sprite;
+    }
+    
+    public Sprite GetKnifeSprite2()
+    {
+        var currentKnifeType = _knifeSprites.Find(item => item.KnifeType == YandexGame.savesData.knifeType);
+        return currentKnifeType.Sprite2;
     }
     
     public Sprite GetKnifeSprite(int id)

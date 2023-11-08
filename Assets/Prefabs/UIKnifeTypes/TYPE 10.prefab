@@ -62,6 +62,7 @@ MonoBehaviour:
   _knifeType: 10
   setup: {fileID: 11400000, guid: 6b40666f0f6517047a8accb836eaba3e, type: 2}
   _price: 100
+  opedWithAds: 1
 --- !u!114 &4107020007608384342
 MonoBehaviour:
   m_ObjectHideFlags: 0
