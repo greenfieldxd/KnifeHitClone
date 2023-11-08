@@ -9,16 +9,15 @@ public class GameUI : MonoBehaviour
     [SerializeField] private DotUIElement[] dotElements;
     [SerializeField] private TextMeshProUGUI stageText;
 
-    public void ActivateDotElement(int number, int stage)
+    
+    public void UpdateStageDots(int currentStage, int visualStage)
     {
-        dotElements[number].SetActive();
-        
-        stageText.text = "Stage " + stage;
-
-        if (stage > YandexGame.savesData.currentStage)
+        for (int i = 0; i < visualStage; i++)
         {
-            YandexGame.savesData.currentStage = stage;
+            dotElements[i].SetActive();
         }
+        
+        stageText.text = $"Stage {currentStage + 1}";
     }
 
 

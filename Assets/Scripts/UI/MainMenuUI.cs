@@ -42,9 +42,9 @@ public class MainMenuUI : MonoBehaviour
 
     public void UpdateUiText()
     {
-        allOrangesText.text = "" + YandexGame.savesData.oranges;
-        bestScoreText.text = "Best Score: " + YandexGame.savesData.bestScore;
-        bestStageText.text = "Stage: " + YandexGame.savesData.currentStage;
+        allOrangesText.text = YandexGame.savesData.oranges.ToString();
+        bestScoreText.text = YandexGame.savesData.bestScore.ToString();
+        bestStageText.text = (YandexGame.savesData.currentStage + 1).ToString();
     }
 
     private void MainMenuStartAnimation()

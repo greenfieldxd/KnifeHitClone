@@ -67,7 +67,7 @@ public class SelectKnifeMenuUI : MonoBehaviour
         {
             YandexGame.RewVideoShow(0);
         }
-        else if (!IsKnifePurchased() && _currentKnifeElement.GetPrice() <= DataManager.GetAllOranges())
+        else if (!IsKnifePurchased() && _currentKnifeElement.GetPrice() <= YandexGame.savesData.oranges)
         {
             YandexGame.savesData.oranges -= _currentKnifeElement.GetPrice();
             YandexGame.savesData.Purchase(_currentKnifeElement.GetKnifeType());
@@ -197,7 +197,7 @@ public class SelectKnifeMenuUI : MonoBehaviour
             selectText.SetActive(true);
             selectKnifeButton.interactable = true;
         }
-        else if (!IsKnifePurchased() && _currentKnifeElement.GetPrice() <= DataManager.GetAllOranges())
+        else if (!IsKnifePurchased() && _currentKnifeElement.GetPrice() <= YandexGame.savesData.oranges)
         {
             selectText.SetActive(false);
             selectedText.SetActive(false);
@@ -208,7 +208,7 @@ public class SelectKnifeMenuUI : MonoBehaviour
             priceText.text = _currentKnifeElement.GetPrice().ToString();
             selectKnifeButton.interactable = true;
         }
-        else if (!IsKnifePurchased() && _currentKnifeElement.GetPrice() >= DataManager.GetAllOranges())
+        else if (!IsKnifePurchased() && _currentKnifeElement.GetPrice() >= YandexGame.savesData.oranges)
         {
             selectText.SetActive(false);
             selectedText.SetActive(false);

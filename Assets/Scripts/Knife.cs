@@ -24,9 +24,12 @@ public class Knife : MonoBehaviour
         
     private bool _moving;
     private bool _rotating;
+    private bool _canCollision;
 
     private void Start()
     {
+        _canCollision = true;
+        
         GetCurrentKnifeType();
         gameObject.AddComponent<PolygonCollider2D>();
         
@@ -65,6 +68,7 @@ public class Knife : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        _canCollision = false;
         _moving = false;
         _rotating = false;
         
@@ -74,7 +78,7 @@ public class Knife : MonoBehaviour
             Destroy(_collider2D);
 
             Instantiate(_effectKnife);
-            SoundManager.PlaySound(_knifeSound);
+            if (SoundManager.Instance != null) SoundManager.Instance.PlaySound(_knifeSound);
 
             transform.DORotate(new Vector3(0, 0, 360) * 1, 0.5f, RotateMode.FastBeyond360);
             transform.DOMoveY(-8, 0.5f).SetEase(Ease.InSine);
@@ -86,7 +90,7 @@ public class Knife : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Circle"))
         {
-            SoundManager.PlaySound(_circleSound);
+            if (SoundManager.Instance != null) SoundManager.Instance.PlaySound(_circleSound);
             
             //set knife parent as circle and set knife trigger
             transform.SetParent(other.transform);

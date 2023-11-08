@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using YG;
 using Random = UnityEngine.Random;
 
 public class MovingCircle : MonoBehaviour
@@ -20,9 +21,7 @@ public class MovingCircle : MonoBehaviour
    
     void Start()
     {
-        GameManager gm = FindObjectOfType<GameManager>();
-        
-        if (gm._stage % 5 == 0)
+        if (YandexGame.savesData.currentStage != 0 && YandexGame.savesData.currentStage % 5 == 0)
         {
             Sequence animBoss = DOTween.Sequence();
 
@@ -85,7 +84,13 @@ public class MovingCircle : MonoBehaviour
 
     public void SelectSprite(int id, int stage)
     {
-        spriteRenderer.sprite = stage % 5 == 0 ? bossSprites[Random.Range(0, bossSprites.Length)] : sprites[id];
+        if (YandexGame.savesData.circleId >= sprites.Length)
+        {
+            YandexGame.savesData.circleId = 0;
+            id = 0;
+        }
+
+        spriteRenderer.sprite = stage != 0 && stage % 5 == 0 ? bossSprites[Random.Range(0, bossSprites.Length)] : sprites[id];
         
         var coll = gameObject.AddComponent<PolygonCollider2D>();
         coll.isTrigger = true;

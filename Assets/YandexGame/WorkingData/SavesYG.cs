@@ -21,8 +21,11 @@ namespace YG
         // Ваши сохранения
 
         public int bestScore;
-        public int currentStage = 1;
+        public int currentStage;
+        public int visualStage;
         public int oranges;
+        public int circleId;
+        
         public KnifeType knifeType = KnifeType.DEFAULT;
         public List<KnifeType> purchasedKnives = new List<KnifeType>();
         
@@ -34,6 +37,7 @@ namespace YG
     
         public void Purchase(KnifeType type)
         {
+            if (purchasedKnives.Contains(type)) return;
             purchasedKnives.Add(type);
         }
 

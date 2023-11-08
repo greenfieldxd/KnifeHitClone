@@ -11,10 +11,14 @@ public class DotUIElement : MonoBehaviour
 
     Sequence animDotElement;
 
+    private bool _isActive;
+
     public void SetActive()
     {
+        if (_isActive) return;
+        
+        _isActive = true;
         GetComponent<Image>().sprite = dotSpriteIconOn;
-
         animDotElement = DOTween.Sequence();
         animDotElement.Append(transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.2f).SetEase(Ease.InSine));
         animDotElement.Append(transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.InSine));
@@ -22,6 +26,7 @@ public class DotUIElement : MonoBehaviour
 
     public void ResetDotElement()
     {
+        _isActive = false;
         GetComponent<Image>().sprite = dotSpriteIconOff;
     }
 }

@@ -13,50 +13,56 @@ using Random = UnityEngine.Random;
 public class GameManager : Singleton<GameManager>
 {
     [Header("UI Manager")]
-    [SerializeField] private UIManager _uiManager;
+    [SerializeField] private UIManager uiManager;
     [Header("References and prefabs")]
     [SerializeField] private GameObject knifePrefab;
     [SerializeField] private GameObject circlePrefab;
     [Space]
     [SerializeField] private Transform startKnifePosition;
-    [SerializeField] private Transform KnifeTargetPosition;
+    [SerializeField] private Transform knifeTargetPosition;
     [SerializeField] private Transform startCirclePosition;
-    [SerializeField] private Transform CircleTargetPosition;
+    [SerializeField] private Transform circleTargetPosition;
     
     [Header("LevelsSetup")] 
     [SerializeField] private LevelSetup _levelSetup;
-
-    public Knife _activeKnife { get; private set; }
-    public MovingCircle ActiveCircle { get; private set; }
-
-    private int _currentLevel;
+    
+    [Header("Debug")] 
+    [SerializeField] private bool debug;
+    
     private int _knifesInCircle;
-    
-    public int _score { get; private set; }
-    public int _stage { get; private set; }
-    
-    private bool _canLaunch = true;
-    private bool _circleLoad = false;
+    private bool _canLaunch;
+    private bool _circleLoad;
 
+    public int Score { get; private set; }
+    public Knife ActiveKnife { get; private set; }
+    public MovingCircle ActiveCircle { get; private set; }
 
     private void Start()
     {
         InitGame();
     }
 
+    private void Update()
+    {
+        if (!debug) return;
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            RestartGame();
+        }
+    }
+
     private void InitGame()
     {
         _knifesInCircle = 0;
-        _currentLevel = 0;
-        _score = 0;
-        _stage = YandexGame.savesData.currentStage;
+        Score = 0;
 
         CreateKnife(1f);
         CreateMovingCircle();
         
-        _uiManager.UpdateOrangeScore();
-        _uiManager.CreateKnifesPanel(_levelSetup.GetLevelInfo(_currentLevel).GetLevelKnifesCount());
-        _uiManager.UpdateStage(_stage);
+        uiManager.UpdateOrangeScore();
+        uiManager.CreateKnifesPanel(_levelSetup.GetLevelInfo(YandexGame.savesData.visualStage).GetLevelKnifesCount());
+        uiManager.GameUi.UpdateStageDots(YandexGame.savesData.currentStage, YandexGame.savesData.visualStage);
     }
     
     
@@ -64,19 +70,19 @@ public class GameManager : Singleton<GameManager>
     private void CreateKnife(float delay)
     {
         var knife = Instantiate(knifePrefab, startKnifePosition.position, Quaternion.identity);
-        knife.transform.DOMove(KnifeTargetPosition.position, 0.1f).SetDelay(delay).OnComplete(() => _canLaunch = true);
+        knife.transform.DOMove(knifeTargetPosition.position, 0.1f).SetDelay(delay).OnComplete(() => _canLaunch = true);
         
-        _activeKnife = knife.GetComponent<Knife>();
+        ActiveKnife = knife.GetComponent<Knife>();
     }
 
     private void CreateMovingCircle()
     {
         var circle = Instantiate(circlePrefab, startCirclePosition.position, Quaternion.identity);
         
-        circle.transform.DOMove(CircleTargetPosition.position, 0.5f).SetDelay(1f).OnComplete((() => _circleLoad = true));
+        circle.transform.DOMove(circleTargetPosition.position, 0.5f).SetDelay(1f).OnComplete((() => _circleLoad = true));
         ActiveCircle = circle.GetComponent<MovingCircle>();
-
-        ActiveCircle.SelectSprite(0, _stage);
+        
+        ActiveCircle.SelectSprite(YandexGame.savesData.circleId, YandexGame.savesData.currentStage);
         //ActiveCircle.CreateKnifeObstacles();
         //if (_levelSetup.GetLevelInfo(_currentLevel).GetOrangeChance()) ActiveCircle.CreateOrange();
     }
@@ -86,47 +92,37 @@ public class GameManager : Singleton<GameManager>
         if (_canLaunch && _circleLoad)
         {
             _canLaunch = false;
-            _activeKnife.Launch();
+            ActiveKnife.Launch();
             CreateKnife(0);
         }
     }
     
     public void AddScore(int count)
     {
-        _score += count;
+        Score += count;
 
-        if (_score > YandexGame.savesData.bestScore)
+        if (Score > YandexGame.savesData.bestScore)
         {
-            YandexGame.savesData.bestScore = _score;
+            YandexGame.savesData.bestScore = Score;
+            YandexGame.SaveProgress();
         }
         
-        _uiManager.UpdateScore(_score);
+        uiManager.UpdateScore(Score);
     }
 
     public void AddOrange(int count)
     {
         YandexGame.savesData.oranges += count;
         YandexGame.SaveProgress();
-        _uiManager.UpdateOrangeScore();
-    }
-
-    public void SpendOranges(int count)
-    {
-        YandexGame.savesData.oranges -= count;
-        YandexGame.SaveProgress();
-        _uiManager.UpdateOrangeScore();
-    }
-
-    private void UpdateUI()
-    {
-        _uiManager.ActivateHitKnife(_knifesInCircle);
-        _knifesInCircle++;
+        uiManager.UpdateOrangeScore();
     }
 
     public void HitTarget()
     {
+        uiManager.ActivateHitKnife(_knifesInCircle);
+        _knifesInCircle++;
+
         AddScore(1);
-        UpdateUI();
         CheckLevelProgress();
     }
 
@@ -134,9 +130,9 @@ public class GameManager : Singleton<GameManager>
 
     private void CheckLevelProgress()
     {
-        if (_stage <= 5)
+        if (YandexGame.savesData.visualStage != 0 && YandexGame.savesData.visualStage % 4 == 0)
         {
-            if (_levelSetup.GetLevelInfo(_currentLevel).GetLevelKnifesCount() == _knifesInCircle)
+            if (_levelSetup.GetMaxDifficult() <= _knifesInCircle)
             {
                 _canLaunch = false;
                 _circleLoad = false;
@@ -148,11 +144,13 @@ public class GameManager : Singleton<GameManager>
         }
         else
         {
-            if (_levelSetup.GetMaxDifficult() == _knifesInCircle)
+            if (_levelSetup.GetLevelInfo(YandexGame.savesData.visualStage).GetLevelKnifesCount() <= _knifesInCircle)
             {
                 _canLaunch = false;
                 _circleLoad = false;
                 _knifesInCircle = 0;
+                YandexGame.savesData.circleId++;
+                YandexGame.SaveProgress();
             
                 ActiveCircle.DestroyCircle();
                 Invoke(nameof(LoadNextLevel), 0.5f);
@@ -163,17 +161,19 @@ public class GameManager : Singleton<GameManager>
 
     private void LoadNextLevel()
     {
-        _currentLevel++;
-        _stage++;
+        YandexGame.savesData.currentStage++;
+        YandexGame.savesData.visualStage++;
 
-        if (_currentLevel == _levelSetup.GetMaxLevelCount())
+        if (YandexGame.savesData.visualStage == _levelSetup.GetMaxLevelCount())
         {
-            _currentLevel = 0;
+            uiManager.GameUi.ClearDots();
+            YandexGame.savesData.visualStage = 0;
         }
+        
+        uiManager.UpdateStage();
 
-        _uiManager.UpdateStage(_stage);
-        if (_stage <= 5) _uiManager.CreateKnifesPanel(_levelSetup.GetLevelInfo(_currentLevel).GetLevelKnifesCount());
-        else _uiManager.CreateKnifesPanel(_levelSetup.GetMaxDifficult());
+        if (YandexGame.savesData.visualStage == 4) uiManager.CreateKnifesPanel(_levelSetup.GetLevelInfo(YandexGame.savesData.visualStage).GetLevelKnifesCount());
+        else uiManager.CreateKnifesPanel(_levelSetup.GetMaxDifficult());
         
         CreateMovingCircle();
         _canLaunch = true;
@@ -183,8 +183,13 @@ public class GameManager : Singleton<GameManager>
 
     public void LoseGame()
     {
-        //LoseGame and Activate Lose menu
-        _uiManager.LoseGame();
+        if (debug) return;
+        uiManager.ResultUi.GetComponent<RectTransform>().DOLocalMoveY(0, 0.5f).SetEase(Ease.InSine);
+    }
+    
+    public void Continue()
+    {
+        
     }
 
     public static void RestartGame()

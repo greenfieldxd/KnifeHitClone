@@ -7,8 +7,8 @@ using YG;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private GameObject gameUI;
-    [SerializeField] private GameObject resultUI;
+    [SerializeField] private GameUI gameUI;
+    [SerializeField] private RestartUI resultUi;
     [Space]
     [SerializeField] private Button knifeButton;
     [Space]
@@ -20,11 +20,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Transform panelKnifes;
     
     private GameManager _gameManager;
-
-    private int _dotsCount = 0;
-
     private List<GameObject> _knifeUIElementsList = new List<GameObject>();
-    
+
+    public GameUI GameUi => gameUI;
+    public RestartUI  ResultUi => resultUi;
+
     void Start()
     {
         _gameManager = FindObjectOfType<GameManager>();
@@ -38,25 +38,10 @@ public class UIManager : MonoBehaviour
     {
         _gameManager.LaunchActiveKnife();
     }
-    
-
-    public void LoseGame()
-    {
-        gameUI.SetActive(false);
-        resultUI.SetActive(true);
-    }
-
-    public void ContinueGame()
-    {
-        resultUI.SetActive(false);
-        gameUI.SetActive(true);
-        
-        _gameManager.SpendOranges(20);
-    }
 
     public void UpdateScore(int newScore)
     {
-        scoreText.text = "" + newScore;
+        scoreText.text = newScore.ToString();
     }
     
     public void UpdateOrangeScore()
@@ -69,15 +54,9 @@ public class UIManager : MonoBehaviour
         anim.Append(orangeIcon.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.InSine));
     }
 
-    public void UpdateStage(int stage)
+    public void UpdateStage()
     {
-        if (_dotsCount == 5)
-        {
-            ResetDotsUI();
-            _dotsCount = 0;
-        }
-        gameUI.GetComponent<GameUI>().ActivateDotElement(_dotsCount, stage);
-        _dotsCount++;
+        gameUI.GetComponent<GameUI>().UpdateStageDots(YandexGame.savesData.currentStage, YandexGame.savesData.visualStage);
     }
 
     public void CreateKnifesPanel(int count)
@@ -93,6 +72,7 @@ public class UIManager : MonoBehaviour
 
     public void ActivateHitKnife(int count)
     {
+        if (count >= _knifeUIElementsList.Count) return;
         _knifeUIElementsList[count].GetComponent<KnifeUIElement>().ActivateKnifeElement();
     }
 
@@ -107,11 +87,4 @@ public class UIManager : MonoBehaviour
         
         _knifeUIElementsList.Clear();
     }
-
-    public void ResetDotsUI()
-    {
-        gameUI.GetComponent<GameUI>().ClearDots();
-    }
-
-    
 }

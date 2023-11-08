@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : Singleton<SoundManager>
 {
     private static AudioSource _audio;
     void Start()
@@ -10,7 +10,7 @@ public class SoundManager : MonoBehaviour
         _audio = GetComponent<AudioSource>();
     }
 
-    public static void PlaySound(AudioClip clip)
+    public void PlaySound(AudioClip clip)
     {
         _audio.PlayOneShot(clip);
     }
