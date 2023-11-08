@@ -6,7 +6,7 @@ using UnityEngine;
 public class KnifeTypeUIElement : MonoBehaviour
 {
     [SerializeField] private KnifeType _knifeType;
-    [SerializeField] private Sprite _knifeSprite;
+    [SerializeField] private KnifeSetup setup;
     [SerializeField] private int _price;
 
     public KnifeType GetKnifeType()
@@ -14,9 +14,14 @@ public class KnifeTypeUIElement : MonoBehaviour
         return _knifeType;
     }
 
-    public Sprite GetKnifeSprite()
+    public Sprite GetKnifeSprite(int id)
     {
-        return _knifeSprite;
+        return setup.GetKnifeSprite(id);
+    }
+    
+    public Sprite GetKnifeSprite2(int id)
+    {
+        return setup.GetKnifeSprite2(id);
     }
 
     public int GetPrice()

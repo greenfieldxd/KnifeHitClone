@@ -7,10 +7,12 @@ using Random = UnityEngine.Random;
 
 public class MovingCircle : MonoBehaviour
 {
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Sprite[] sprites;
     [SerializeField] private GameObject sliceCirclePrefab;
     [SerializeField] private GameObject orangePrefab;
     [SerializeField] private GameObject knifeObstaclePrefab;
-    [SerializeField] private Animation flashCircleEffect;
+    [SerializeField] private Color flashColor;
 
     private float moveSpeedTime;
     private int _rotate;
@@ -19,7 +21,7 @@ public class MovingCircle : MonoBehaviour
     void Start()
     {
         GameManager gm = FindObjectOfType<GameManager>();
-
+        
         if (gm._stage % 5 == 0)
         {
             Sequence animBoss = DOTween.Sequence();
@@ -50,7 +52,9 @@ public class MovingCircle : MonoBehaviour
         else
         {
             moveSpeedTime = Random.Range(2.5f, 3f);
-            transform.DORotate(new Vector3(0, 0, 360f), moveSpeedTime, RotateMode.FastBeyond360).SetEase(Ease.Linear)
+           
+            transform.DORotate(new Vector3(0, 0, 360f), moveSpeedTime, RotateMode.FastBeyond360)
+                .SetEase(Ease.Linear)
                 .SetLoops(-1, LoopType.Restart);
         }
 
@@ -78,11 +82,21 @@ public class MovingCircle : MonoBehaviour
             _rotate += Random.Range(20, 71);
         }
     }
+
+    public void SelectSprite(int id)
+    {
+        spriteRenderer.sprite = sprites[id];
+        var coll = gameObject.AddComponent<PolygonCollider2D>();
+        coll.isTrigger = true;
+    }
     
     public void ShakeCircle()
     {
         transform.DOShakePosition(.2f, new Vector3(0.15f, 0.15f, 0.15f), 10, 20f);
-        flashCircleEffect.Play("FlashCircle");
+        spriteRenderer.DOColor(flashColor, 0.05f).OnComplete(() =>
+        {
+            spriteRenderer.DOColor(Color.white, 0.05f);
+        });
     }
 
     public void DestroyCircle()
@@ -90,5 +104,4 @@ public class MovingCircle : MonoBehaviour
         Instantiate(sliceCirclePrefab);
         Destroy(gameObject);
     }
-
 }

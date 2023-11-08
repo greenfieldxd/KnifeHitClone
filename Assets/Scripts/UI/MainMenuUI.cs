@@ -33,10 +33,10 @@ public class MainMenuUI : MonoBehaviour
 
     public void MainMenuStartAnimation()
     {
-        playButton.GetComponent<RectTransform>().DOLocalMoveY(-1600, 0.7f).SetEase(Ease.InOutCirc);
-        selectKnifeButton.GetComponent<RectTransform>().DOLocalMoveY(-1400, 0.7f).SetEase(Ease.InOutCirc);
-        logo.GetComponent<RectTransform>().DOLocalMoveY(1600, 0.7f).SetEase(Ease.InOutCirc);
-        texts.GetComponent<RectTransform>().DOLocalMoveX(-1200, 0.7f).SetEase(Ease.InOutCirc).OnComplete(() =>
+        playButton.GetComponent<RectTransform>().DOLocalMoveY(-2500, 0.7f).SetEase(Ease.InOutCirc);
+        selectKnifeButton.GetComponent<RectTransform>().DOLocalMoveY(-2500, 0.7f).SetEase(Ease.InOutCirc);
+        logo.GetComponent<RectTransform>().DOLocalMoveY(2500, 0.7f).SetEase(Ease.InOutCirc);
+        texts.GetComponent<RectTransform>().DOLocalMoveX(-2500, 0.7f).SetEase(Ease.InOutCirc).OnComplete(() =>
         {
             SceneManager.LoadScene("GameScene");
         });
@@ -45,7 +45,7 @@ public class MainMenuUI : MonoBehaviour
     public void OpenSelectKnifeMenu()
     {
         selectKnifeMenu.SetActive(true);
-        selectKnifeMenu.GetComponent<RectTransform>().DOLocalMoveX(0, 0.5f).SetEase(Ease.InSine);
-        mainMenu.GetComponent<RectTransform>().DOLocalMoveX(-800, 0.5f).SetEase(Ease.InSine);
+        selectKnifeMenu.GetComponent<RectTransform>().DOLocalMoveY(0, 0.5f).SetEase(Ease.InSine);
+        mainMenu.GetComponent<RectTransform>().DOLocalMoveY(-2500, 0.5f).SetEase(Ease.InSine);
     }
 }

@@ -11,12 +11,18 @@ public class SelectKnifeMenuUI : MonoBehaviour
     [SerializeField] private Button rightArrowButton;
     [SerializeField] private Button leftArrowButton;
     [SerializeField] private Button backToMainMenuButton;
+    [SerializeField] private GameObject selectIcon;
+    [SerializeField] private GameObject selectText;
+    [SerializeField] private GameObject selectedText;
+    [SerializeField] private GameObject priceIcon;
+    [SerializeField] private TextMeshProUGUI priceText;
+
     [Space]
     [SerializeField] private GameObject _mainMenu;
     [SerializeField] private GameObject _selectMenu;
     [Space]
-    [SerializeField] private Image _currentKnifeImage;
-    [SerializeField] private TextMeshProUGUI _selectButtonText;
+    [SerializeField] private Image _currentKnifeImage1;
+    [SerializeField] private Image _currentKnifeImage2;
     [Space] 
     [SerializeField] private KnifeTypeUIElement[] _knifeTypeElements;
 
@@ -66,8 +72,8 @@ public class SelectKnifeMenuUI : MonoBehaviour
     private void BackToMainMenu()
     {
         _mainMenu.SetActive(true);
-        _selectMenu.GetComponent<RectTransform>().DOLocalMoveX(800, 0.5f).SetEase(Ease.InSine).OnComplete((() => _selectMenu.SetActive(false)));
-        _mainMenu.GetComponent<RectTransform>().DOLocalMoveX(0, 0.5f).SetEase(Ease.InSine);
+        _selectMenu.GetComponent<RectTransform>().DOLocalMoveY(2500, 0.5f).SetEase(Ease.InSine).OnComplete((() => _selectMenu.SetActive(false)));
+        _mainMenu.GetComponent<RectTransform>().DOLocalMoveY(0, 0.5f).SetEase(Ease.InSine);
     }
 
     private void LeftArrow()
@@ -80,7 +86,7 @@ public class SelectKnifeMenuUI : MonoBehaviour
             _currentIdElement--;
             _currentKnifeElement = _knifeTypeElements[_currentIdElement];
 
-            MoveImage(650);
+            MoveImage(4500);
         }
     }
 
@@ -94,7 +100,7 @@ public class SelectKnifeMenuUI : MonoBehaviour
             _currentIdElement++;
             _currentKnifeElement = _knifeTypeElements[_currentIdElement];
 
-            MoveImage(-650);
+            MoveImage(-4500);
         }
     }
 
@@ -122,24 +128,37 @@ public class SelectKnifeMenuUI : MonoBehaviour
 
     private void UpdateSelectButton()
     {
-        if (_currentKnifeElement.GetKnifeType() == DataManager.GetKnifeType())
+        if (_currentKnifeElement.GetKnifeType().ToString() == DataManager.GetKnifeType())
         {
-            _selectButtonText.text = "Current knife";
+            priceText.gameObject.SetActive(false);
+            priceIcon.SetActive(false);
+            selectedText.SetActive(true);
+            selectIcon.SetActive(true);
             selectKnifeButton.interactable = false;
+            
         }
         else if (_currentKnifeElement.IsKnifeOpened())
         {
-            _selectButtonText.text = "Select";
+            selectText.SetActive(true);
+            selectedText.SetActive(false);
+            priceText.gameObject.SetActive(false);
+            priceIcon.SetActive(false);    
             selectKnifeButton.interactable = true;
         }
         else if (!_currentKnifeElement.IsKnifeOpened() && _currentKnifeElement.GetPrice() <= DataManager.GetAllOranges())
         {
-            _selectButtonText.text = "Buy for " + _currentKnifeElement.GetPrice() + " oranges.";
+            selectedText.SetActive(false);
+            selectedText.SetActive(false);
+            priceIcon.SetActive(true);
+            priceText.text = _currentKnifeElement.GetPrice().ToString();
             selectKnifeButton.interactable = true;
         }
         else if (!_currentKnifeElement.IsKnifeOpened() && _currentKnifeElement.GetPrice() >= DataManager.GetAllOranges())
         {
-            _selectButtonText.text = "Need " + _currentKnifeElement.GetPrice() + " oranges";
+            selectedText.SetActive(false);
+            selectedText.SetActive(false);
+            priceIcon.SetActive(true);
+            priceText.text = _currentKnifeElement.GetPrice().ToString();
             selectKnifeButton.interactable = false;
         }
     }
@@ -148,10 +167,10 @@ public class SelectKnifeMenuUI : MonoBehaviour
     {
         Sequence moveAnim = DOTween.Sequence();
         
-        moveAnim.Append(_currentKnifeImage.GetComponent<RectTransform>().DOLocalMoveX(endPos, 0.2f).SetEase(Ease.InSine));
-        moveAnim.Append(_currentKnifeImage.GetComponent<RectTransform>().DOLocalMoveX(-endPos, 0));
+        moveAnim.Append(_currentKnifeImage1.GetComponent<RectTransform>().DOLocalMoveX(endPos, 0.2f).SetEase(Ease.InSine));
+        moveAnim.Append(_currentKnifeImage1.GetComponent<RectTransform>().DOLocalMoveX(-endPos, 0));
         moveAnim.AppendCallback(UpdateKnifeTypeImage);
-        moveAnim.Append(_currentKnifeImage.GetComponent<RectTransform>().DOLocalMoveX(0, 0.2f).SetEase(Ease.InSine));
+        moveAnim.Append(_currentKnifeImage1.GetComponent<RectTransform>().DOLocalMoveX(0, 0.2f).SetEase(Ease.InSine));
         moveAnim.AppendCallback((() =>
         {
             _canPress = true;
@@ -171,8 +190,7 @@ public class SelectKnifeMenuUI : MonoBehaviour
 
     private void UpdateKnifeTypeImage()
     {
-        _currentKnifeImage.sprite = _currentKnifeElement.GetKnifeSprite();
+        _currentKnifeImage1.sprite = _currentKnifeElement.GetKnifeSprite(_currentIdElement);
+        _currentKnifeImage2.sprite = _currentKnifeElement.GetKnifeSprite2(_currentIdElement);
     }
-
-    
 }

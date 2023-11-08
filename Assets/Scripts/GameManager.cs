@@ -9,7 +9,7 @@ using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
     [Header("UI Manager")]
     [SerializeField] private UIManager _uiManager;
@@ -26,8 +26,8 @@ public class GameManager : MonoBehaviour
     [Header("LevelsSetup")] 
     [SerializeField] private LevelSetup _levelSetup;
 
-    private Knife _activeKnife;
-    private MovingCircle _activeCircle;
+    public Knife _activeKnife { get; private set; }
+    public MovingCircle ActiveCircle { get; private set; }
 
     private int _currentLevel;
     private int _knifesInCircle;
@@ -76,18 +76,19 @@ public class GameManager : MonoBehaviour
         
         if (_stage % 5 == 0)
         {
-            circle = Instantiate(bossPrefab[Random.Range(0, bossPrefab.Length)], startCirclePosition);
+            circle = Instantiate(bossPrefab[Random.Range(0, bossPrefab.Length)], startCirclePosition.position, Quaternion.identity);
         }
         else
         {
-            circle = Instantiate(circlePrefab, startCirclePosition);
+            circle = Instantiate(circlePrefab, startCirclePosition.position, Quaternion.identity);
         }
         
         circle.transform.DOMove(CircleTargetPosition.position, 0.1f).OnComplete((() => _circleLoad = true));
-        _activeCircle = circle.GetComponent<MovingCircle>();
+        ActiveCircle = circle.GetComponent<MovingCircle>();
 
-        if (_levelSetup.GetLevelInfo(_currentLevel).GetOrangeChance()) _activeCircle.CreateOrange();
-        _activeCircle.CreateKnifeObstacles();
+        ActiveCircle.SelectSprite(0);
+        //ActiveCircle.CreateKnifeObstacles();
+        //if (_levelSetup.GetLevelInfo(_currentLevel).GetOrangeChance()) ActiveCircle.CreateOrange();
     }
 
     public void LaunchActiveKnife()
@@ -165,7 +166,7 @@ public class GameManager : MonoBehaviour
                 _circleLoad = false;
                 _knifesInCircle = 0;
             
-                _activeCircle.DestroyCircle();
+                ActiveCircle.DestroyCircle();
                 Invoke(nameof(LoadNextLevel), 0.5f);
             }
         }
@@ -177,7 +178,7 @@ public class GameManager : MonoBehaviour
                 _circleLoad = false;
                 _knifesInCircle = 0;
             
-                _activeCircle.DestroyCircle();
+                ActiveCircle.DestroyCircle();
                 Invoke(nameof(LoadNextLevel), 0.5f);
             }
         }
@@ -186,9 +187,6 @@ public class GameManager : MonoBehaviour
 
     private void LoadNextLevel()
     {
-        //Win Vibrate
-        Vibration.Vibrate(30);
-
         _currentLevel++;
         _stage++;
 
@@ -217,6 +215,4 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("GameScene");
     }
-
-
 }

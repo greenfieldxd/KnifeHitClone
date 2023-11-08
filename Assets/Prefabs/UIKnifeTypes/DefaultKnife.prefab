@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 825905832633118053}
   - component: {fileID: 4107020007608384342}
   m_Layer: 5
-  m_Name: TypeKnife
+  m_Name: DefaultKnife
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,6 +29,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -59,7 +60,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _knifeType: 0
-  _knifeSprite: {fileID: 21300000, guid: 83d670e8493ec1442bf5bbcacfe0ad4f, type: 3}
+  setup: {fileID: 11400000, guid: 6b40666f0f6517047a8accb836eaba3e, type: 2}
+  _price: 0
 --- !u!114 &4107020007608384342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,7 +82,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 83d670e8493ec1442bf5bbcacfe0ad4f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ea745fd7380e1624bb513af99556024a, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
