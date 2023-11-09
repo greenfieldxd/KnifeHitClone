@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Source.Scripts.Extensions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -55,6 +56,8 @@ public class SelectKnifeMenuUI : MonoBehaviour
     
     private void SelectKnife()
     {
+        OtherExtensions.TransformPunchScale(selectKnifeButton.transform);
+        
         if (_canPress && IsKnifePurchased())
         {
             YandexGame.savesData.knifeType = _currentKnifeElement.GetKnifeType();
@@ -69,6 +72,7 @@ public class SelectKnifeMenuUI : MonoBehaviour
         }
         else if (!IsKnifePurchased() && _currentKnifeElement.GetPrice() <= YandexGame.savesData.oranges)
         {
+            SoundManager.Instance.PlaySound();
             YandexGame.savesData.oranges -= _currentKnifeElement.GetPrice();
             YandexGame.savesData.Purchase(_currentKnifeElement.GetKnifeType());
             YandexGame.SaveProgress();
@@ -92,16 +96,19 @@ public class SelectKnifeMenuUI : MonoBehaviour
 
     private void BackToMainMenu()
     {
-        backToMainMenuButton.interactable = false;
-        selectKnifeButton.interactable = false;
+        OtherExtensions.TransformPunchScale(backToMainMenuButton.transform);
+        SoundManager.Instance.PlaySound();
+        
+        backToMainMenuButton.enabled = false;
+        selectKnifeButton.enabled = false;
 
         _mainMenu.SetActive(true);
         _mainMenu.GetComponent<MainMenuUI>().UpdateUiText();
 
         _selectMenu.GetComponent<RectTransform>().DOLocalMoveY(2500, 0.5f).SetEase(Ease.InSine).OnComplete((() =>
         {
-            backToMainMenuButton.interactable = true;
-            selectKnifeButton.interactable = true;
+            backToMainMenuButton.enabled = true;
+            selectKnifeButton.enabled = true;
             _selectMenu.SetActive(false);
         }));
         _mainMenu.GetComponent<RectTransform>().DOLocalMoveY(0, 0.5f).SetEase(Ease.InSine);
@@ -111,6 +118,9 @@ public class SelectKnifeMenuUI : MonoBehaviour
     {
         if (_canPress)
         {
+            OtherExtensions.TransformPunchScale(leftArrowButton.transform);
+            SoundManager.Instance.PlaySound();
+            
             _canPress = false;
             SetInteractableButtons(false);
 
@@ -125,6 +135,9 @@ public class SelectKnifeMenuUI : MonoBehaviour
     {
         if (_canPress)
         {
+            OtherExtensions.TransformPunchScale(rightArrowButton.transform);
+            SoundManager.Instance.PlaySound();
+            
             _canPress = false;
             SetInteractableButtons(false);
 

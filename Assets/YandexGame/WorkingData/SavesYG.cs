@@ -22,8 +22,7 @@ namespace YG
 
         public bool isSound = true;
         public int bestScore;
-        public int currentStage;
-        public int visualStage;
+        public int bestStage;
         public int oranges;
         public int defaultCircleId;
         public int bossCircleId;

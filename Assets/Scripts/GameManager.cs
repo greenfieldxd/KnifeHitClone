@@ -37,6 +37,8 @@ public class GameManager : Singleton<GameManager>
     private bool _isLose;
 
     public int Score { get; private set; }
+    public int Stage { get; private set; }
+    public int VisualStage { get; private set; }
     public Knife ActiveKnife { get; private set; }
     public MovingCircle ActiveCircle { get; private set; }
 
@@ -57,7 +59,7 @@ public class GameManager : Singleton<GameManager>
 
     private void InitGame()
     {
-        _isBoss = YandexGame.savesData.visualStage == 4;
+        _isBoss = VisualStage == 4;
         _difficult = _levelSetup.GetDifficult(_isBoss);
         _knifesInCircle = 0;
         Score = 0;
@@ -65,10 +67,10 @@ public class GameManager : Singleton<GameManager>
         CreateKnife(1f);
         CreateMovingCircle(_isBoss);
         
-        uiManager.UpdateStage();
+        uiManager.UpdateStage(Stage, VisualStage);
         uiManager.UpdateOrangeScore();
         uiManager.CreateKnifesPanel(_difficult);
-        uiManager.GameUi.UpdateStageDots(YandexGame.savesData.currentStage, YandexGame.savesData.visualStage);
+        uiManager.GameUi.UpdateStageDots(Stage, VisualStage);
     }
     
     
@@ -111,17 +113,11 @@ public class GameManager : Singleton<GameManager>
         if (Score > YandexGame.savesData.bestScore)
         {
             YandexGame.savesData.bestScore = Score;
+            YandexGame.NewLeaderboardScores("slimes", YandexGame.savesData.bestScore);
             YandexGame.SaveProgress();
         }
         
         uiManager.UpdateScore(Score);
-    }
-
-    public void AddOrange(int count)
-    {
-        YandexGame.savesData.oranges += count;
-        YandexGame.SaveProgress();
-        uiManager.UpdateOrangeScore();
     }
 
     public void HitTarget()
@@ -150,22 +146,28 @@ public class GameManager : Singleton<GameManager>
 
     private void LoadNextLevel()
     {
-        YandexGame.savesData.currentStage++;
-        YandexGame.savesData.visualStage++;
+        Stage++;
+        VisualStage++;
         
-        if (YandexGame.savesData.visualStage > 4)
+        if (Stage > YandexGame.savesData.bestStage)
+        {
+            YandexGame.savesData.bestStage = Stage;
+            YandexGame.SaveProgress();
+        }
+
+        if (VisualStage > 4)
         {
             uiManager.GameUi.ClearDots();
-            YandexGame.savesData.visualStage = 0;
+            VisualStage = 0;
         }
         
-        _isBoss = YandexGame.savesData.visualStage == 4;
+        _isBoss = VisualStage == 4;
 
         if (_isBoss) YandexGame.savesData.bossCircleId++;
         else YandexGame.savesData.defaultCircleId++;
         
         _difficult = _levelSetup.GetDifficult(_isBoss);
-        uiManager.UpdateStage();
+        uiManager.UpdateStage(Stage, VisualStage);
         uiManager.CreateKnifesPanel(_difficult);
         
         CreateMovingCircle(_isBoss);

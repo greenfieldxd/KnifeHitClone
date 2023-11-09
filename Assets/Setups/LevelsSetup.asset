@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89c3655f4a08514408853bb308d72ad7, type: 3}
   m_Name: LevelsSetup
   m_EditorClassIdentifier: 
-  minRandomKnifesCount: 5
-  maxRandomKnifesCount: 6
-  maxDifficultBoss: 6
-  minDifficultBoss: 8
+  minRandomKnifesCount: 6
+  maxRandomKnifesCount: 7
+  maxDifficultBoss: 8
+  minDifficultBoss: 9
   orangeChance: 0.25

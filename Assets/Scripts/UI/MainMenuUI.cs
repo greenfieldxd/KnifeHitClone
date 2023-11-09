@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Source.Scripts.Extensions;
+using Source.Scripts.Systems.Game;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,8 +13,8 @@ using YG;
 
 public class MainMenuUI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI bestScoreText;
-    [SerializeField] private TextMeshProUGUI bestStageText;
+    [SerializeField] private Translator bestScoreText;
+    [SerializeField] private Translator bestStageText;
     [SerializeField] private TextMeshProUGUI allOrangesText;
     [SerializeField] private Button playButton;
     [SerializeField] private Button selectKnifeButton;
@@ -30,8 +31,6 @@ public class MainMenuUI : MonoBehaviour
     
     [Header("Cheats")]
     [SerializeField] private bool addOranges;
-
-    
 
     private void Start()
     {
@@ -73,17 +72,22 @@ public class MainMenuUI : MonoBehaviour
     public void UpdateUiText()
     {
         allOrangesText.text = YandexGame.savesData.oranges.ToString();
-        bestScoreText.text = YandexGame.savesData.bestScore.ToString();
-        bestStageText.text = (YandexGame.savesData.currentStage + 1).ToString();
+        bestScoreText.SetValue(YandexGame.savesData.bestScore);
+        bestStageText.SetValue(YandexGame.savesData.bestStage + 1);
     }
 
     private void MainMenuStartAnimation()
     {
-        playButton.interactable = false;
-        selectKnifeButton.interactable = false;
-        
+        playButton.enabled = false;
+        selectKnifeButton.enabled = false;
+
+        OtherExtensions.TransformPunchScale(mainMenu.transform);
+        SoundManager.Instance.PlaySound();
+
         playButton.GetComponent<RectTransform>().DOLocalMoveY(-2500, 0.7f).SetEase(Ease.InOutCirc);
         selectKnifeButton.GetComponent<RectTransform>().DOLocalMoveY(-2500, 0.7f).SetEase(Ease.InOutCirc);
+        soundButton.GetComponent<RectTransform>().DOLocalMoveY(2500, 0.7f).SetEase(Ease.InOutCirc);
+        languageButton.GetComponent<RectTransform>().DOLocalMoveY(2500, 0.7f).SetEase(Ease.InOutCirc);
         logoYellow.GetComponent<RectTransform>().DOLocalMoveY(-2500, 0.7f).SetEase(Ease.InOutCirc);
         logo.GetComponent<RectTransform>().DOLocalMoveY(2500, 0.7f).SetEase(Ease.InOutCirc);
         texts.GetComponent<RectTransform>().DOLocalMoveX(-2500, 0.7f).SetEase(Ease.InOutCirc).OnComplete(() =>
@@ -94,15 +98,18 @@ public class MainMenuUI : MonoBehaviour
 
     private void OpenSelectKnifeMenu()
     {
-        playButton.interactable = false;
-        selectKnifeButton.interactable = false;
+        playButton.enabled = false;
+        selectKnifeButton.enabled = false;
+        
+        OtherExtensions.TransformPunchScale(selectKnifeButton.transform);
+        SoundManager.Instance.PlaySound();
         
         selectKnifeMenu.SetActive(true);
         selectKnifeMenu.GetComponent<RectTransform>().DOLocalMoveY(0, 0.5f).SetEase(Ease.InSine);
         mainMenu.GetComponent<RectTransform>().DOLocalMoveY(-2500, 0.5f).SetEase(Ease.InSine).OnComplete(() =>
         {
-            playButton.interactable = true;
-            selectKnifeButton.interactable = true;
+            playButton.enabled = true;
+            selectKnifeButton.enabled = true;
         });
     }
 }

@@ -55,9 +55,9 @@ public class UIManager : MonoBehaviour
         anim.Append(orangeIcon.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.InSine));
     }
 
-    public void UpdateStage()
+    public void UpdateStage(int stage, int visualStage)
     {
-        gameUI.GetComponent<GameUI>().UpdateStageDots(YandexGame.savesData.currentStage, YandexGame.savesData.visualStage);
+        gameUI.GetComponent<GameUI>().UpdateStageDots(stage, visualStage);
     }
 
     public void CreateKnifesPanel(int count)
