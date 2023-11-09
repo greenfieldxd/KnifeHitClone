@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -31,7 +32,7 @@ public class SelectKnifeMenuUI : MonoBehaviour
 
     private bool _canPress = true;
 
-    void OnEnable()
+    private void Start()
     {
         InitKnifes();
 
