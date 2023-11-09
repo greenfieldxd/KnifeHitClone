@@ -19,9 +19,9 @@ public class MovingCircle : MonoBehaviour
     private int _rotate;
 
    
-    void Start()
+    public void Init(bool isBoss)
     {
-        if (YandexGame.savesData.currentStage != 0 && YandexGame.savesData.currentStage % 5 == 0)
+        if (isBoss)
         {
             Sequence animBoss = DOTween.Sequence();
 
@@ -82,15 +82,19 @@ public class MovingCircle : MonoBehaviour
         }
     }
 
-    public void SelectSprite(int id, int stage)
+    public void SelectSprite(bool isBoss)
     {
-        if (YandexGame.savesData.circleId >= sprites.Length)
+        if (YandexGame.savesData.defaultCircleId >= sprites.Length)
         {
-            YandexGame.savesData.circleId = 0;
-            id = 0;
+            YandexGame.savesData.defaultCircleId = 0;
+        }
+        
+        if (YandexGame.savesData.bossCircleId >= bossSprites.Length)
+        {
+            YandexGame.savesData.bossCircleId = 0;
         }
 
-        spriteRenderer.sprite = stage != 0 && stage % 5 == 0 ? bossSprites[Random.Range(0, bossSprites.Length)] : sprites[id];
+        spriteRenderer.sprite = isBoss ? bossSprites[YandexGame.savesData.bossCircleId] : sprites[YandexGame.savesData.defaultCircleId];
         
         var coll = gameObject.AddComponent<PolygonCollider2D>();
         coll.isTrigger = true;

@@ -7,42 +7,13 @@ using Random = UnityEngine.Random;
 [CreateAssetMenu(fileName = "LevelsSetup", menuName = "App/LevelsSetup", order = 1)]
 public class LevelSetup : ScriptableObject
 {
-    [SerializeField] private int maxDifficult;
-    [SerializeField] private List<Level> _levels;
-
-
-    public Level GetLevelInfo(int levelNumber)
-    {
-        return _levels[levelNumber];
-    }
-
-    public int GetMaxLevelCount()
-    {
-        return _levels.Count;
-    }
+    [SerializeField] private int minRandomKnifesCount;
+    [SerializeField] private int maxRandomKnifesCount;
+    [SerializeField] private int maxDifficultBoss;
+    [SerializeField] private int minDifficultBoss;
     
-    public int GetMaxDifficult()
+    public int GetDifficult(bool isBoss)
     {
-        return maxDifficult;
-    }
-    
-    
-    [Serializable]
-    public struct Level
-    {
-        [SerializeField] private int levelsKnifes;
-        [SerializeField] private float orangeChance;
-
-
-        public int GetLevelKnifesCount()
-        {
-            return levelsKnifes;
-        }
-        public bool GetOrangeChance()
-        {
-            var rand = Random.value * 100;
-
-            return rand < orangeChance;
-        }
+        return isBoss ? Random.Range(minDifficultBoss, maxDifficultBoss + 1) :Random.Range(minRandomKnifesCount, maxRandomKnifesCount + 1);
     }
 }

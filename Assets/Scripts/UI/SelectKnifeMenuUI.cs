@@ -39,7 +39,7 @@ public class SelectKnifeMenuUI : MonoBehaviour
         leftArrowButton.onClick.AddListener(LeftArrow);
         backToMainMenuButton.onClick.AddListener(BackToMainMenu);
 
-        YandexGame.CloseVideoEvent += OpenKnifeWithAds;
+        YandexGame.RewardVideoEvent += OpenKnifeWithAds;
     }
 
     private void InitKnifes()
@@ -76,8 +76,10 @@ public class SelectKnifeMenuUI : MonoBehaviour
         }
     }
 
-    private void OpenKnifeWithAds()
+    private void OpenKnifeWithAds(int id)
     {
+        if (id != 0) return;
+
         YandexGame.savesData.Purchase(_currentKnifeElement.GetKnifeType());
         YandexGame.SaveProgress();
         UpdateSelectButton();

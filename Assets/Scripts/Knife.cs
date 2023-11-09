@@ -74,6 +74,8 @@ public class Knife : MonoBehaviour
         
         if (other.gameObject.CompareTag("Knife"))
         {
+            FindObjectOfType<GameManager>().LoseGame();
+
             _collider2D.enabled = false;
             Destroy(_collider2D);
 
@@ -82,11 +84,7 @@ public class Knife : MonoBehaviour
 
             transform.DORotate(new Vector3(0, 0, 360) * 1, 0.5f, RotateMode.FastBeyond360);
             transform.DOMoveY(-8, 0.5f).SetEase(Ease.InSine);
-            transform.DOMoveX(Random.Range(-4, -4), 0.6f).SetEase(Ease.InSine).OnComplete((() => 
-                {
-                    FindObjectOfType<GameManager>().LoseGame();
-                    Destroy(gameObject);
-                }));
+            transform.DOMoveX(Random.Range(-4, -4), 0.6f).SetEase(Ease.InSine).OnComplete(() => Destroy(gameObject));
         }
         else if (other.gameObject.CompareTag("Circle"))
         {

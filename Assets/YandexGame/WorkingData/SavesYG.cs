@@ -24,7 +24,8 @@ namespace YG
         public int currentStage;
         public int visualStage;
         public int oranges;
-        public int circleId;
+        public int defaultCircleId;
+        public int bossCircleId;
         
         public KnifeType knifeType = KnifeType.DEFAULT;
         public List<KnifeType> purchasedKnives = new List<KnifeType>();

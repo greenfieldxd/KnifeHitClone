@@ -11,26 +11,21 @@ using YG;
 public class RestartUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI bestScoreText;
-    [SerializeField] private TextMeshProUGUI allOrangesText;
     [SerializeField] private Button restartButton;
-    [SerializeField] private Button continueButton;
     [SerializeField] private Button backToMainMenuButton;
-    [SerializeField] private GameObject texts;
-    [SerializeField] private GameObject buttons;
+    [SerializeField] private Button continueButton;
 
     private void Start()
     {
-        continueButton.onClick.AddListener(() => YandexGame.RewardVideoEvent(0));
         restartButton.onClick.AddListener(RestartButton);
         backToMainMenuButton.onClick.AddListener(BackToMainMenu);
-        continueButton.onClick.AddListener(() => YandexGame.RewVideoShow(0));
+        continueButton.onClick.AddListener(() => YandexGame.RewVideoShow(1));
 
-        YandexGame.CloseVideoEvent += ContinueGame;
+        YandexGame.RewardVideoEvent += ContinueGame;
     }
 
     private void OnEnable()
     {
-        allOrangesText.text = "" + YandexGame.savesData.oranges;
         bestScoreText.text = YandexGame.savesData.bestScore.ToString();
     }
 
@@ -39,9 +34,7 @@ public class RestartUI : MonoBehaviour
         continueButton.interactable = false;
         restartButton.interactable = false;
         backToMainMenuButton.interactable = false;
-        
-        texts.GetComponent<RectTransform>().DOLocalMoveY(2500, 0.5f).SetEase(Ease.InSine);
-        buttons.GetComponent<RectTransform>().DOLocalMoveX(-2500, 0.5f).SetEase(Ease.InSine).OnComplete(GameManager.RestartGame);
+        GameManager.Instance.RestartGame();
     }
 
     private void BackToMainMenu()
@@ -49,18 +42,23 @@ public class RestartUI : MonoBehaviour
         continueButton.interactable = false;
         restartButton.interactable = false;
         backToMainMenuButton.interactable = false;
-        
-        texts.GetComponent<RectTransform>().DOLocalMoveY(2500, 0.5f).SetEase(Ease.InSine);
-        buttons.GetComponent<RectTransform>().DOLocalMoveX(-2500, 0.5f).SetEase(Ease.InSine).OnComplete(() => SceneManager.LoadScene("MainMenu"));
+        SceneManager.LoadScene("MainMenu");
     }
 
-    private void ContinueGame()
+    public void LoseGame()
     {
+        continueButton.interactable = true;
+        restartButton.interactable = true;
+        backToMainMenuButton.interactable = true;
+    }
+
+    private void ContinueGame(int id)
+    {
+        if (id != 1) return;
+        
         continueButton.interactable = false;
         restartButton.interactable = false;
         backToMainMenuButton.interactable = false;
-        
-        texts.GetComponent<RectTransform>().DOLocalMoveY(2500, 0.5f).SetEase(Ease.InSine);
-        buttons.GetComponent<RectTransform>().DOLocalMoveX(-2500, 0.5f).SetEase(Ease.InSine).OnComplete(() => FindObjectOfType<GameManager>().Continue());
+        FindObjectOfType<GameManager>().Continue();
     }
 }
