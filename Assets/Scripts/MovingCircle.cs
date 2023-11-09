@@ -12,11 +12,9 @@ public class MovingCircle : MonoBehaviour
     [SerializeField] private Sprite[] sprites;
     [SerializeField] private Sprite[] bossSprites;
     [SerializeField] private GameObject orangePrefab;
-    [SerializeField] private GameObject knifeObstaclePrefab;
     [SerializeField] private Color flashColor;
 
     private float _moveSpeedTime;
-    private int _rotate;
 
    
     public void Init(bool isBoss)
@@ -30,19 +28,18 @@ public class MovingCircle : MonoBehaviour
             {
                 animBoss.Append(transform.DORotate(new Vector3(0, 0, Random.Range(100, 361)), Random.Range(1.5f, 2.5f),
                     RotateMode.FastBeyond360).SetEase(Ease.InOutSine));
-                animBoss.Append(transform.DORotate(new Vector3(0, 0, Random.Range(0, 10)), Random.Range(0.5f, 1.5f),
+                animBoss.Append(transform.DORotate(new Vector3(0, 0, Random.Range(0, 10)), Random.Range(1, 1.5f),
                     RotateMode.FastBeyond360).SetEase(Ease.InOutSine));
                 animBoss.Append(transform.DORotate(new Vector3(0, 0, Random.Range(250, 600)), Random.Range(1.5f, 3f),
                     RotateMode.FastBeyond360).SetEase(Ease.InOutSine));
-                animBoss.Append(transform.DORotate(new Vector3(0, 0, Random.Range(600, 1000)), Random.Range(1.5f, 2f),
+                animBoss.Append(transform.DORotate(new Vector3(0, 0, Random.Range(600, 1000)), Random.Range(1.5f, 2.5f),
                     RotateMode.FastBeyond360).SetEase(Ease.InOutSine));
-                animBoss.Append(transform.DORotate(new Vector3(0, 0, Random.Range(0, 10)), Random.Range(0.5f, 1.5f),
+                animBoss.Append(transform.DORotate(new Vector3(0, 0, Random.Range(0, 10)), Random.Range(1, 1.5f),
                     RotateMode.FastBeyond360).SetEase(Ease.InOutSine));
             }
             else
             {
-                animBoss.Append(transform.DORotate(new Vector3(0, 0, Random.Range(301, 601)), Random.Range(1.5f, 2.5f),
-                    RotateMode.FastBeyond360).SetEase(Ease.InOutSine));
+                animBoss.Append(transform.DORotate(new Vector3(0, 0, transform.eulerAngles.z + 360), Random.Range(2f, 2.5f), RotateMode.FastBeyond360).SetEase(Ease.InOutSine));
                 animBoss.AppendInterval(0.2f);
             }
 
@@ -52,34 +49,24 @@ public class MovingCircle : MonoBehaviour
         {
             _moveSpeedTime = Random.Range(2.5f, 3f);
            
-            transform.DORotate(new Vector3(0, 0, 360f), _moveSpeedTime, RotateMode.FastBeyond360)
+            transform.DORotate(new Vector3(0, 0, transform.eulerAngles.z + 360f), _moveSpeedTime, RotateMode.FastBeyond360)
                 .SetEase(Ease.Linear)
                 .SetLoops(-1, LoopType.Restart);
         }
-
-        _rotate = Random.Range(0, 361);
     }
 
-    public void CreateOrange()
+    public void CreateOrange(Vector3 position)
     {
-        var orange = Instantiate(orangePrefab, transform);
-       
-       orange.transform.DORotate(new Vector3(0, 0, _rotate), 0f);
-       
-       _rotate += Random.Range(20, 71);
-    }
+        var coll = GetComponent<Collider2D>();
 
-    public void CreateKnifeObstacles()
-    {
-        var rand = Random.Range(1, 4);
-
-        for (int i = 0; i < rand; i++)
-        {
-            var knife = Instantiate(knifeObstaclePrefab, transform);
-            knife.transform.DORotate(new Vector3(0, 0, _rotate), 0f);
-
-            _rotate += Random.Range(20, 71);
-        }
+       if (coll)
+       {
+           Vector3 closestPoint = coll.ClosestPoint(position);
+           var randRotate = Random.Range(0, 360);
+           var orange = Instantiate(orangePrefab, transform);
+           orange.transform.DORotate(new Vector3(0, 0, randRotate), 0f, RotateMode.FastBeyond360);
+           orange.transform.position = closestPoint + new Vector3(0,-0.1f,0);
+       }
     }
 
     public void SelectSprite(bool isBoss)
@@ -111,6 +98,12 @@ public class MovingCircle : MonoBehaviour
 
     public void DestroyCircle()
     {
-        Destroy(gameObject);
+        DOTween.Kill(transform);
+
+        var rand = Random.value;
+        transform.DORotate(new Vector3(0, 0, transform.eulerAngles.z + Random.Range(0, -360f)) , 0.5f, RotateMode.FastBeyond360);
+        transform.DOJump(new Vector3(rand > 0.5f ? -8 : 8, -8, 0), 3f, 1, 0.5f).SetEase(Ease.InSine);
+        transform.DOScale(0, 0.5f).SetEase(Ease.InSine);
+        Destroy(gameObject, 0.65f);
     }
 }

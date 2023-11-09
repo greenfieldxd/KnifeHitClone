@@ -84,14 +84,14 @@ public class GameManager : Singleton<GameManager>
     private void CreateMovingCircle(bool isBoss)
     {
         var circle = Instantiate(circlePrefab, startCirclePosition.position, Quaternion.identity, startCirclePosition);
-        
-        circle.transform.DOMove(circleTargetPosition.position, 0.5f).SetDelay(1f).OnComplete((() => _circleLoad = true));
-        ActiveCircle = circle.GetComponent<MovingCircle>();
-        ActiveCircle.SelectSprite(isBoss);
-        ActiveCircle.Init(isBoss);
-        
-        //ActiveCircle.CreateKnifeObstacles();
-        //if (_levelSetup.GetLevelInfo(_currentLevel).GetOrangeChance()) ActiveCircle.CreateOrange();
+        circle.transform.DORotate(new Vector3(0, 0, Random.Range(0, 360f)), 0, RotateMode.FastBeyond360).OnComplete(() =>
+            {
+                circle.transform.DOMove(circleTargetPosition.position, 0.5f).SetDelay(1f).OnComplete(() => _circleLoad = true);
+                ActiveCircle = circle.GetComponent<MovingCircle>();
+                ActiveCircle.SelectSprite(isBoss);
+                if (_levelSetup.GetOrangeChance()) ActiveCircle.CreateOrange(knifeTargetPosition.position);
+                ActiveCircle.Init(isBoss);
+            });
     }
 
     public void LaunchActiveKnife()

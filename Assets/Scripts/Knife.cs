@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Source.Scripts.Extensions;
 using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
@@ -10,9 +11,9 @@ public class Knife : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private SpriteRenderer _spriteRenderer2;
-    [SerializeField] private GameObject _effectKnife;
-    [SerializeField] private AudioClip _knifeSound;
-    [SerializeField] private AudioClip _circleSound;
+    [SerializeField] private Sprite spriteDeath;
+    [SerializeField] private GameObject _effectDeathKnife;
+    [SerializeField] private AudioClip sound;
     [SerializeField] private float speed = 3f;
     [SerializeField] private float rotateSpeed = 25;
     [Space]
@@ -50,7 +51,7 @@ public class Knife : MonoBehaviour
         if (_moving)
         {
             var target = GameManager.Instance.ActiveCircle.transform;
-            transform.position = Vector3.Lerp(transform.position, target.position, speed * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, target.position + Vector3.up, speed * Time.deltaTime);
         }
     }
 
@@ -68,27 +69,49 @@ public class Knife : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        _canCollision = false;
-        _moving = false;
-        _rotating = false;
+        if (!_canCollision) return;
         
         if (other.gameObject.CompareTag("Knife"))
         {
+            _canCollision = false;
+            _moving = false;
+            _rotating = false;
+            transform.SetParent(null);
+            
             FindObjectOfType<GameManager>().LoseGame();
 
             _collider2D.enabled = false;
             Destroy(_collider2D);
+            
+            _spriteRenderer2.sprite = spriteDeath;
+            var tr = transform;
+            OtherExtensions.TransformPunchScale(tr, 0.2f, 0.2f, 1);
+            
+            if (SoundManager.Instance != null) SoundManager.Instance.PlaySound(sound);
 
-            Instantiate(_effectKnife);
-            if (SoundManager.Instance != null) SoundManager.Instance.PlaySound(_knifeSound);
-
-            transform.DORotate(new Vector3(0, 0, 360) * 1, 0.5f, RotateMode.FastBeyond360);
-            transform.DOMoveY(-8, 0.5f).SetEase(Ease.InSine);
-            transform.DOMoveX(Random.Range(-4, -4), 0.6f).SetEase(Ease.InSine).OnComplete(() => Destroy(gameObject));
+            transform.DORotate(new Vector3(0, 0, Random.Range(0, 360f)) , 0.5f, RotateMode.FastBeyond360);
+            transform.DOJump(new Vector3(Random.Range(-4, 4), -8, 0), 3f, 1, 0.5f).SetEase(Ease.InSine);
+            Destroy(gameObject, 0.65f);
         }
         else if (other.gameObject.CompareTag("Circle"))
         {
-            if (SoundManager.Instance != null) SoundManager.Instance.PlaySound(_circleSound);
+            _canCollision = false;
+            _moving = false;
+            _rotating = false;
+
+            var tr = transform;
+            OtherExtensions.TransformPunchScale(tr, -0.2f, 0.2f, 1);
+            
+            _spriteRenderer2.sprite = spriteDeath;
+            var effects = Instantiate(_effectDeathKnife, transform.position, Quaternion.identity).GetComponentsInChildren<ParticleSystem>();
+
+            foreach (var effect in effects)
+            {
+                var main = effect.main;
+                main.startColor = _knifeSetup.GetEffectColor();
+            }
+
+            if (SoundManager.Instance != null) SoundManager.Instance.PlaySound(sound);
             
             //set knife parent as circle and set knife trigger
             transform.SetParent(other.transform);

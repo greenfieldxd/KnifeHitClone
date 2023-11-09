@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
 
     public GameUI GameUi => gameUI;
     public RestartUI  ResultUi => resultUi;
+    public Transform  OrangeIcon => orangeIcon.transform;
 
     void Start()
     {

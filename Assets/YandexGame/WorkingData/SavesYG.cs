@@ -20,6 +20,7 @@ namespace YG
 
         // Ваши сохранения
 
+        public bool isSound = true;
         public int bestScore;
         public int currentStage;
         public int visualStage;

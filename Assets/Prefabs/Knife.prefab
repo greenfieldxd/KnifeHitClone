@@ -185,9 +185,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 9021313186391847096}
   _spriteRenderer2: {fileID: 3440634065219092637}
-  _effectKnife: {fileID: 7255580438491753110, guid: a1308a041db843f4599a976e5770ba11, type: 3}
-  _knifeSound: {fileID: 8300000, guid: 65f00351939ee79408647c7bf1d53ae4, type: 3}
-  _circleSound: {fileID: 8300000, guid: 32b2714ddebd2494f8bd256b656c083d, type: 3}
+  spriteDeath: {fileID: 21300000, guid: 6904183e90bd9a2448a40cabcab51534, type: 3}
+  _effectDeathKnife: {fileID: 7014356699071218851, guid: 5d4e0aba79cf2c2418c5d55c4cb7357b, type: 3}
+  _effectHitKnife: {fileID: 4437299154936812312, guid: f2cb9650b76fbce4d84bfc7c304df0fe, type: 3}
+  sound: {fileID: 8300000, guid: 989f45684c26e02469c398380fe631fc, type: 3}
   speed: 8
   rotateSpeed: 100
   _knifeSetup: {fileID: 11400000, guid: 6b40666f0f6517047a8accb836eaba3e, type: 2}

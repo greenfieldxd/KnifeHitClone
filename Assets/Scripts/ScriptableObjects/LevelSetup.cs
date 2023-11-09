@@ -11,9 +11,15 @@ public class LevelSetup : ScriptableObject
     [SerializeField] private int maxRandomKnifesCount;
     [SerializeField] private int maxDifficultBoss;
     [SerializeField] private int minDifficultBoss;
+    [SerializeField] private float orangeChance;
     
     public int GetDifficult(bool isBoss)
     {
         return isBoss ? Random.Range(minDifficultBoss, maxDifficultBoss + 1) :Random.Range(minRandomKnifesCount, maxRandomKnifesCount + 1);
+    }
+    
+    public bool GetOrangeChance()
+    {
+        return Random.value < orangeChance;
     }
 }

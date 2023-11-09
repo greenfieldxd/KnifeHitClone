@@ -2,28 +2,27 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Source.Scripts.Systems.Game;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class Orange : MonoBehaviour
 {
     [SerializeField] private Transform _parentOgange;
-    [SerializeField] private GameObject sliceOrangePrefab;
+    [SerializeField] private ParticleSystem effect;
 
    
     private void OnTriggerEnter2D(Collider2D other)
     {
-        GameManager gm = FindObjectOfType<GameManager>();
-        gm.AddScore(1);
-        gm.AddOrange(1);
+        AddResourceSystem.Instance.AnimateMoney(transform.position);
+        GameManager.Instance.AddScore(1);
 
         DestroyOrange();
     }
 
     private void DestroyOrange()
     {
-        Instantiate(sliceOrangePrefab);
-        Destroy(_parentOgange.gameObject);    }
-    
-    
+        Instantiate(effect, transform.position, Quaternion.identity);
+        Destroy(_parentOgange.gameObject);
+    }  
 }

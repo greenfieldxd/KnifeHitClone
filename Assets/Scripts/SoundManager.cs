@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class SoundManager : Singleton<SoundManager>
 {
-    private static AudioSource _audio;
-    void Start()
-    {
-        _audio = GetComponent<AudioSource>();
-    }
-
+    [SerializeField] private AudioSource backgroundMusic;
+    [SerializeField] private AudioSource audioEffects;
+    
     public void PlaySound(AudioClip clip)
     {
-        _audio.PlayOneShot(clip);
+        audioEffects.PlayOneShot(clip);
     }
 
 }

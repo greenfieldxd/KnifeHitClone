@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: LevelsSetup
   m_EditorClassIdentifier: 
   minRandomKnifesCount: 5
-  maxRandomKnifesCount: 7
-  maxDifficultBoss: 7
-  minDifficultBoss: 9
+  maxRandomKnifesCount: 6
+  maxDifficultBoss: 6
+  minDifficultBoss: 8
+  orangeChance: 0.25
