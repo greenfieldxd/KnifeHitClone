@@ -1,5 +1,5 @@
 {
-  "idSave": 209,
+  "idSave": 216,
   "isFirstSession": false,
   "language": "ru",
   "promptDone": false,
@@ -10,13 +10,13 @@
     true,
     false
   ],
-  "isSound": true,
+  "isSound": false,
   "bestScore": 61,
   "bestStage": 4,
-  "oranges": 8,
-  "defaultCircleId": 8,
+  "oranges": 9,
+  "defaultCircleId": 11,
   "bossCircleId": 2,
-  "knifeType": 1,
+  "knifeType": 0,
   "purchasedKnives": [
     1,
     4
