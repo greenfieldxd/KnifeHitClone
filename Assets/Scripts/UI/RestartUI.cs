@@ -26,10 +26,15 @@ public class RestartUI : MonoBehaviour
         {
             OtherExtensions.TransformPunchScale(continueButton.transform);
             SoundManager.Instance.PlaySound();
-            YandexGame.RewVideoShow(1);
+            YandexGame.RewVideoShow();
         });
 
         YandexGame.RewardVideoEvent += ContinueGame;
+    }
+
+    private void OnDestroy()
+    {
+        YandexGame.RewardVideoEvent -= ContinueGame;
     }
 
     private void RestartButton()
@@ -64,13 +69,11 @@ public class RestartUI : MonoBehaviour
         backToMainMenuButton.enabled = true;
     }
 
-    private void ContinueGame(int id)
+    private void ContinueGame(int id = 0)
     {
-        if (id != 1) return;
-        
         continueButton.enabled = false;
         restartButton.enabled = false;
         backToMainMenuButton.enabled = false;
-        FindObjectOfType<GameManager>().Continue();
+        GameManager.Instance.Continue();
     }
 }

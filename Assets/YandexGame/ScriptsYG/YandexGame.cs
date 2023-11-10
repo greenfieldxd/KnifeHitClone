@@ -276,7 +276,7 @@ namespace YG
             }
         }
 
-        public static void RewVideoShow(int id) => Instance._RewardedShow(id);
+        public static void RewVideoShow(int id = 0) => Instance._RewardedShow(id);
 
 #if UNITY_EDITOR
         private void AdRewardInEditor(int id)

@@ -44,6 +44,11 @@ public class SelectKnifeMenuUI : MonoBehaviour
         YandexGame.RewardVideoEvent += OpenKnifeWithAds;
     }
 
+    private void OnDestroy()
+    {
+        YandexGame.RewardVideoEvent -= OpenKnifeWithAds;
+    }
+
     private void InitKnifes()
     {
         _currentIdElement = 0;
@@ -69,7 +74,7 @@ public class SelectKnifeMenuUI : MonoBehaviour
         }
         else if (!IsKnifePurchased() && _currentKnifeElement.OpenWithAds)
         {
-            YandexGame.RewVideoShow(0);
+            YandexGame.RewVideoShow();
         }
         else if (!IsKnifePurchased() && _currentKnifeElement.GetPrice() <= YandexGame.savesData.oranges)
         {
@@ -81,10 +86,8 @@ public class SelectKnifeMenuUI : MonoBehaviour
         }
     }
 
-    private void OpenKnifeWithAds(int id)
+    private void OpenKnifeWithAds(int id = 0)
     {
-        if (id != 0) return;
-
         YandexGame.savesData.Purchase(_currentKnifeElement.GetKnifeType());
         YandexGame.SaveProgress();
         UpdateSelectButton();
