@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 9021313186391847096}
-  _effectDeathKnife: {fileID: 7014356699071218851, guid: 5d4e0aba79cf2c2418c5d55c4cb7357b, type: 3}
+  _effectDeathKnife: {fileID: 7675156963168376274, guid: bee29bf0d0a1aee48be005cbe5de06a0, type: 3}
   sound: {fileID: 8300000, guid: 0705c565b0dfb564aba640c2079ccdbf, type: 3}
   speed: 8
   rotateSpeed: 100

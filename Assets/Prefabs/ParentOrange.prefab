@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parentOgange: {fileID: 6685605929752843091}
-  effect: {fileID: 7303938111717782462, guid: 634cd3f3814eab64f8ff486bcf418c22, type: 3}
+  effect: {fileID: 7675156963153992380, guid: 170c383c216a03b4baef6409d3af0725, type: 3}
 --- !u!58 &3286646541070755896
 CircleCollider2D:
   m_ObjectHideFlags: 0
