@@ -9,7 +9,7 @@ public class SoundManager : Singleton<SoundManager>
     [SerializeField] private AudioSource backgroundMusic;
     [SerializeField] private AudioSource audioEffects;
     [SerializeField] private AudioClip clickSound;
-
+    
     private void Start()
     {
         UpdateStatus();
