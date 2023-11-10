@@ -113,7 +113,7 @@ public class GameManager : Singleton<GameManager>
         if (Score > YandexGame.savesData.bestScore)
         {
             YandexGame.savesData.bestScore = Score;
-            YandexGame.NewLeaderboardScores("slimes", YandexGame.savesData.bestScore);
+            YandexGame.NewLeaderboardScores("leader", YandexGame.savesData.bestScore);
             YandexGame.SaveProgress();
         }
         

@@ -24,7 +24,6 @@ public class SelectKnifeMenuUI : MonoBehaviour
     [Space] [SerializeField] private GameObject _mainMenu;
     [SerializeField] private GameObject _selectMenu;
     [Space] [SerializeField] private Image _currentKnifeImage1;
-    [SerializeField] private Image _currentKnifeImage2;
     [Space] [SerializeField] private KnifeTypeUIElement[] _knifeTypeElements;
 
     private KnifeTypeUIElement _currentKnifeElement;
@@ -267,6 +266,5 @@ public class SelectKnifeMenuUI : MonoBehaviour
     private void UpdateKnifeTypeImage()
     {
         _currentKnifeImage1.sprite = _currentKnifeElement.GetKnifeSprite(_currentIdElement);
-        _currentKnifeImage2.sprite = _currentKnifeElement.GetKnifeSprite2(_currentIdElement);
     }
 }

@@ -10,8 +10,6 @@ using Random = UnityEngine.Random;
 public class Knife : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer _spriteRenderer;
-    [SerializeField] private SpriteRenderer _spriteRenderer2;
-    [SerializeField] private Sprite spriteDeath;
     [SerializeField] private GameObject _effectDeathKnife;
     [SerializeField] private AudioClip sound;
     [SerializeField] private float speed = 3f;
@@ -83,7 +81,6 @@ public class Knife : MonoBehaviour
             _collider2D.enabled = false;
             Destroy(_collider2D);
             
-            _spriteRenderer2.sprite = spriteDeath;
             var tr = transform;
             OtherExtensions.TransformPunchScale(tr, 0.2f, 0.2f, 1);
             
@@ -102,7 +99,6 @@ public class Knife : MonoBehaviour
             var tr = transform;
             OtherExtensions.TransformPunchScale(tr, -0.2f, 0.2f, 1);
             
-            _spriteRenderer2.sprite = spriteDeath;
             var effects = Instantiate(_effectDeathKnife, transform.position, Quaternion.identity).GetComponentsInChildren<ParticleSystem>();
 
             foreach (var effect in effects)
@@ -130,7 +126,6 @@ public class Knife : MonoBehaviour
     private void GetCurrentKnifeType()
     {
         _spriteRenderer.sprite = _knifeSetup.GetKnifeSprite();
-        _spriteRenderer2.sprite = _knifeSetup.GetKnifeSprite2();
     }
 }
     

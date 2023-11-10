@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 75c49f24d336b0a4fb1e5e019ff1224c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f92779edf2031a2488051016fab6f1db, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -89,5 +89,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebee9ac33813e694589506223c2ea033, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knifeSpriteIconOn: {fileID: 21300000, guid: 37e8b6fd9aac6c84fb8096b831230bc7, type: 3}
-  knifeSpriteIconOff: {fileID: 21300000, guid: 75c49f24d336b0a4fb1e5e019ff1224c, type: 3}
+  knifeSpriteIconOn: {fileID: 21300000, guid: f73de9bfcf21bbd408d355a299b01c92, type: 3}
+  knifeSpriteIconOff: {fileID: 21300000, guid: f92779edf2031a2488051016fab6f1db, type: 3}

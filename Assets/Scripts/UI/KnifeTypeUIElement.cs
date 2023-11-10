@@ -22,11 +22,6 @@ public class KnifeTypeUIElement : MonoBehaviour
     {
         return setup.GetKnifeSprite(id);
     }
-    
-    public Sprite GetKnifeSprite2(int id)
-    {
-        return setup.GetKnifeSprite2(id);
-    }
 
     public int GetPrice()
     {
