@@ -1,5 +1,5 @@
 {
-  "idSave": 42,
+  "idSave": 106,
   "isFirstSession": false,
   "language": "en",
   "promptDone": false,
@@ -10,12 +10,14 @@
     true,
     false
   ],
-  "isSound": false,
-  "bestScore": 23,
-  "bestStage": 3,
-  "oranges": 3,
+  "isSound": true,
+  "bestScore": 62,
+  "bestStage": 8,
+  "oranges": 1000,
   "defaultCircleId": 1,
-  "bossCircleId": 0,
-  "knifeType": 0,
-  "purchasedKnives": []
+  "bossCircleId": 2,
+  "knifeType": 10,
+  "purchasedKnives": [
+    10
+  ]
 }

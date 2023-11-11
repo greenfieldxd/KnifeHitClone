@@ -36,7 +36,7 @@ public class MainMenuUI : MonoBehaviour
     {
         if (addOranges)
         {
-            YandexGame.savesData.oranges = 100;
+            YandexGame.savesData.oranges = 1000;
             YandexGame.SaveProgress();
         }
         
