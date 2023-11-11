@@ -178,7 +178,7 @@ MonoBehaviour:
   restartButton: {fileID: 149342249}
   backToMainMenuButton: {fileID: 983539140}
   continueButton: {fileID: 390549835}
-  loseSound: {fileID: 8300000, guid: 56adc271f133a3c47bbe118709be32bc, type: 3}
+  loseSound: {fileID: 8300000, guid: 0fe27b2f9f66a5d43964b04849177e30, type: 3}
 --- !u!1 &62973618
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,7 +238,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2ff84045655e0f84b9bd79a7137f0d23, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 13da8d670925dfd498beb2f8bac246b9, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -260,8 +260,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 321ce824461758144a78df404c06145e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dotSpriteIconOn: {fileID: 21300000, guid: f6c2db7b6b2755d4a8e18df148699208, type: 3}
-  dotSpriteIconOff: {fileID: 21300000, guid: 2ff84045655e0f84b9bd79a7137f0d23, type: 3}
+  dotSpriteIconOn: {fileID: 21300000, guid: bfd5a8bb10c9e2e45b1240fa9bb0f871, type: 3}
+  dotSpriteIconOff: {fileID: 21300000, guid: 13da8d670925dfd498beb2f8bac246b9, type: 3}
 --- !u!222 &62973622
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -804,7 +804,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2ff84045655e0f84b9bd79a7137f0d23, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 13da8d670925dfd498beb2f8bac246b9, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -826,8 +826,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 321ce824461758144a78df404c06145e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dotSpriteIconOn: {fileID: 21300000, guid: f6c2db7b6b2755d4a8e18df148699208, type: 3}
-  dotSpriteIconOff: {fileID: 21300000, guid: 2ff84045655e0f84b9bd79a7137f0d23, type: 3}
+  dotSpriteIconOn: {fileID: 21300000, guid: bfd5a8bb10c9e2e45b1240fa9bb0f871, type: 3}
+  dotSpriteIconOff: {fileID: 21300000, guid: 13da8d670925dfd498beb2f8bac246b9, type: 3}
 --- !u!222 &318825025
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1006,7 +1006,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 426967937}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 239330c31ea94a64c86318ed099c8bd2, type: 2}
   m_CullingMode: 0
@@ -1461,7 +1461,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2ff84045655e0f84b9bd79a7137f0d23, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 13da8d670925dfd498beb2f8bac246b9, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1483,8 +1483,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 321ce824461758144a78df404c06145e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dotSpriteIconOn: {fileID: 21300000, guid: f6c2db7b6b2755d4a8e18df148699208, type: 3}
-  dotSpriteIconOff: {fileID: 21300000, guid: 2ff84045655e0f84b9bd79a7137f0d23, type: 3}
+  dotSpriteIconOn: {fileID: 21300000, guid: bfd5a8bb10c9e2e45b1240fa9bb0f871, type: 3}
+  dotSpriteIconOff: {fileID: 21300000, guid: 13da8d670925dfd498beb2f8bac246b9, type: 3}
 --- !u!222 &545265264
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2706,7 +2706,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2ff84045655e0f84b9bd79a7137f0d23, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 13da8d670925dfd498beb2f8bac246b9, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2728,8 +2728,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 321ce824461758144a78df404c06145e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dotSpriteIconOn: {fileID: 21300000, guid: f6c2db7b6b2755d4a8e18df148699208, type: 3}
-  dotSpriteIconOff: {fileID: 21300000, guid: 2ff84045655e0f84b9bd79a7137f0d23, type: 3}
+  dotSpriteIconOn: {fileID: 21300000, guid: bfd5a8bb10c9e2e45b1240fa9bb0f871, type: 3}
+  dotSpriteIconOff: {fileID: 21300000, guid: 13da8d670925dfd498beb2f8bac246b9, type: 3}
 --- !u!222 &1158178406
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3426,7 +3426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.5568628, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.24705884, b: 0.38431376, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3874,7 +3874,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2ff84045655e0f84b9bd79a7137f0d23, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 13da8d670925dfd498beb2f8bac246b9, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -3896,8 +3896,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 321ce824461758144a78df404c06145e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dotSpriteIconOn: {fileID: 21300000, guid: f6c2db7b6b2755d4a8e18df148699208, type: 3}
-  dotSpriteIconOff: {fileID: 21300000, guid: 2ff84045655e0f84b9bd79a7137f0d23, type: 3}
+  dotSpriteIconOn: {fileID: 21300000, guid: bfd5a8bb10c9e2e45b1240fa9bb0f871, type: 3}
+  dotSpriteIconOff: {fileID: 21300000, guid: 13da8d670925dfd498beb2f8bac246b9, type: 3}
 --- !u!222 &2143074958
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -450,7 +450,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8cffb59c04f56a54a8e60f7ddb51569b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 95f22bb6575f0ef449c6657565e0c428, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1416,7 +1416,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &489869992
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1435,7 +1435,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 4.644}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -351, y: -466}
+  m_AnchoredPosition: {x: -335, y: -886}
   m_SizeDelta: {x: 1280, y: 1280}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &489869993
@@ -2553,7 +2553,7 @@ MonoBehaviour:
   soundOff: {fileID: 1543341331}
   ruSprite: {fileID: 21300000, guid: 1219c5cab7189405dafd55d762508a53, type: 3}
   enSprite: {fileID: 21300000, guid: fe47e233143e64610b8a069446bab0ec, type: 3}
-  addOranges: 1
+  addOranges: 0
 --- !u!1 &1014510686
 GameObject:
   m_ObjectHideFlags: 0
@@ -3709,8 +3709,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 602bbb7694ed48d690e932b6a371b48a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ru: "\u041D\u0443\u0431\u0438\u043A \u043C\u0430\u0437\u0438\u043B\u0430"
-  en: crooked noob
+  ru: "\u0410\u043D\u0438\u043C\u0435 \u0434\u0435\u0432\u0443\u0448\u043A\u0438"
+  en: Anime girls
 --- !u!1 &1465478648
 GameObject:
   m_ObjectHideFlags: 0
@@ -4967,7 +4967,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2027421452}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 6008752216cbc0e4d85d499ac96e5e61, type: 2}
   m_CullingMode: 0

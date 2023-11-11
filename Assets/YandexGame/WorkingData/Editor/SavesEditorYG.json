@@ -1,7 +1,7 @@
 {
-  "idSave": 106,
+  "idSave": 205,
   "isFirstSession": false,
-  "language": "en",
+  "language": "ru",
   "promptDone": false,
   "money": 1,
   "newPlayerName": "Hello!",
@@ -13,11 +13,20 @@
   "isSound": true,
   "bestScore": 62,
   "bestStage": 8,
-  "oranges": 1000,
-  "defaultCircleId": 1,
-  "bossCircleId": 2,
-  "knifeType": 10,
+  "oranges": 1004,
+  "defaultCircleId": 9,
+  "bossCircleId": 3,
+  "knifeType": 0,
   "purchasedKnives": [
-    10
+    10,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
   ]
 }
