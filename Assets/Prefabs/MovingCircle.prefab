@@ -101,23 +101,12 @@ MonoBehaviour:
   spriteRenderer: {fileID: 5135914759578062931}
   sprites:
   - {fileID: 21300000, guid: ca30616c62aca3c47b45dcddea58f5dd, type: 3}
-  - {fileID: 21300000, guid: 32c60e86528af5945bcfcb9eece1529f, type: 3}
-  - {fileID: 21300000, guid: 0560299477148b342b65f229fcf51ad0, type: 3}
   - {fileID: 21300000, guid: 0e197ca99bbf081428b10f80b1688199, type: 3}
-  - {fileID: 21300000, guid: c4dd0af17a4220441b64245e2f1c3d8a, type: 3}
-  - {fileID: 21300000, guid: 06af7a6824bef214e8254e4e8cc01d6f, type: 3}
-  - {fileID: 21300000, guid: a74eb15e922a7034abecce8e4d6e0af5, type: 3}
-  - {fileID: 21300000, guid: 8fe69dc7821b5724a8abfcb0523db39c, type: 3}
   - {fileID: 21300000, guid: d4c135dfc0f44724bbe432939c760c46, type: 3}
-  - {fileID: 21300000, guid: 3c4cdd11f8b105c44b65ad09d3658d57, type: 3}
-  - {fileID: 21300000, guid: e7b2cffef3baca04486742ad141bd274, type: 3}
-  - {fileID: 21300000, guid: 02860429265c5c042a7091a70eb7628e, type: 3}
   bossSprites:
-  - {fileID: 21300000, guid: c4ec45a07b29c3048952e8ea608a8c7d, type: 3}
-  - {fileID: 21300000, guid: 89e57421cd7ce3c478483c564149ccab, type: 3}
-  - {fileID: 21300000, guid: c178137ef0ffbfa47a7c849f507f7256, type: 3}
-  - {fileID: 21300000, guid: 25b66e46076d77c42914ac7d1a53d6a8, type: 3}
-  - {fileID: 21300000, guid: ff10f1b11f876cc41b6d7c6f20ff0453, type: 3}
+  - {fileID: 21300000, guid: ca30616c62aca3c47b45dcddea58f5dd, type: 3}
+  - {fileID: 21300000, guid: 0e197ca99bbf081428b10f80b1688199, type: 3}
+  - {fileID: 21300000, guid: d4c135dfc0f44724bbe432939c760c46, type: 3}
   orangePrefab: {fileID: 3097833887553643736, guid: ada362faee8fe9a458df128849426d64, type: 3}
   flashColor: {r: 1, g: 0.4009434, b: 0.4009434, a: 1}
 --- !u!111 &2384438177745787207
