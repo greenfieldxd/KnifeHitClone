@@ -75,15 +75,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: a9507ea072f72974c9c7371b36a97e63, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eb43bbd6425276a44972db707b4aff01, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.12, y: 5.12}
+  m_Size: {x: 10.24, y: 10.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &5135914759578062929
@@ -100,20 +100,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 5135914759578062931}
   sprites:
-  - {fileID: 21300000, guid: 19eac078bfd5aec4f82732ff43bdc8c8, type: 3}
-  - {fileID: 21300000, guid: 1dbc90e850fda4046bdd23d80b938aed, type: 3}
-  - {fileID: 21300000, guid: aad9109db7e67bd49b4fc928182bac28, type: 3}
-  - {fileID: 21300000, guid: 4a7a0ef1e4a3f9a45afc7734b99da140, type: 3}
-  - {fileID: 21300000, guid: fc5493e6500991f4498d9b4c9704e3c0, type: 3}
-  - {fileID: 21300000, guid: db501d8818071464b8ea5f22b97bbe70, type: 3}
-  - {fileID: 21300000, guid: e8151e616b7d5fa4986e362502c23b68, type: 3}
-  - {fileID: 21300000, guid: 518263ce4c3ac7b4081618585e603a84, type: 3}
-  - {fileID: 21300000, guid: 85986a72a2e50d6419ee909a44a5c914, type: 3}
+  - {fileID: 21300000, guid: 78a39169c0f82724188d4ad5b266b10c, type: 3}
+  - {fileID: 21300000, guid: ffc821d36fecd264197da8d207439be3, type: 3}
+  - {fileID: 21300000, guid: 26ae00f4cf8241948a95b90f7d7d8f74, type: 3}
+  - {fileID: 21300000, guid: 75811247dd18eb0479e2409eb2a5a5db, type: 3}
+  - {fileID: 21300000, guid: 2baa0cd037ca9c24086a2e872b02a973, type: 3}
+  - {fileID: 21300000, guid: 5329e3dce9abc2d448af69f57dbfb991, type: 3}
   bossSprites:
-  - {fileID: 21300000, guid: dfcc1e9eabf6cc74f842746b1229c448, type: 3}
-  - {fileID: 21300000, guid: f0ccad5120712b94b8c2d10c16d42838, type: 3}
-  - {fileID: 21300000, guid: 17cbc206b69da0641a7ab7583cf1d3cc, type: 3}
-  - {fileID: 21300000, guid: 918612a7dc3f1e2469cfbeadb8bc017a, type: 3}
+  - {fileID: 21300000, guid: eb43bbd6425276a44972db707b4aff01, type: 3}
+  - {fileID: 21300000, guid: c1d685a50a21b0a4b89bcda3f05dbe59, type: 3}
+  - {fileID: 21300000, guid: 6c9910cb49f43ff41908c73f4f755511, type: 3}
   orangePrefab: {fileID: 3097833887553643736, guid: ada362faee8fe9a458df128849426d64, type: 3}
   flashColor: {r: 1, g: 0.4009434, b: 0.4009434, a: 1}
 --- !u!111 &2384438177745787207
