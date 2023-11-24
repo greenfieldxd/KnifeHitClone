@@ -45,6 +45,8 @@ public class RestartUI : MonoBehaviour
         continueButton.enabled = false;
         restartButton.enabled = false;
         backToMainMenuButton.enabled = false;
+        
+        YandexGame.FullscreenShow();
         GameManager.Instance.RestartGame();
     }
 
@@ -56,6 +58,8 @@ public class RestartUI : MonoBehaviour
         continueButton.enabled = false;
         restartButton.enabled = false;
         backToMainMenuButton.enabled = false;
+        
+        YandexGame.FullscreenShow();
         SceneManager.LoadScene("MainMenu");
     }
 

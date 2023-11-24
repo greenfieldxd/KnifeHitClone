@@ -13,36 +13,36 @@ MonoBehaviour:
   m_Name: KnifeSetup
   m_EditorClassIdentifier: 
   _knifeSprites:
-  - _sprite: {fileID: 21300000, guid: d13845da659671046ba219cdc47b1592, type: 3}
-    effectColor: {r: 0.4666667, g: 0.68235296, b: 0.32156864, a: 1}
+  - _sprite: {fileID: 21300000, guid: 78d48de709e68504da36f72ba0fb2fef, type: 3}
+    effectColor: {r: 1, g: 0.83921576, b: 0.25882354, a: 1}
     _knifeType: 0
-  - _sprite: {fileID: 21300000, guid: 07a0ea10b583a7940add4321f5c3304d, type: 3}
-    effectColor: {r: 0.48627454, g: 0.48235297, b: 0.48627454, a: 1}
+  - _sprite: {fileID: 21300000, guid: 9a3647c7758f54946adbce7314a42bcd, type: 3}
+    effectColor: {r: 0.5176471, g: 0.79215693, b: 1, a: 1}
     _knifeType: 1
-  - _sprite: {fileID: 21300000, guid: 5cf4209fab8777b41a7fb883438118b3, type: 3}
-    effectColor: {r: 0.4339623, g: 0.055268783, b: 0.055268783, a: 1}
+  - _sprite: {fileID: 21300000, guid: 237e4278679ace644a81062acf241f34, type: 3}
+    effectColor: {r: 0.77647066, g: 0, b: 0.13725491, a: 1}
     _knifeType: 2
-  - _sprite: {fileID: 21300000, guid: 85974fcc74d945b438ceba17d576208a, type: 3}
-    effectColor: {r: 0.41176474, g: 0.6039216, b: 0.48235297, a: 1}
+  - _sprite: {fileID: 21300000, guid: 8295db3f4dd6fd94494afa0e6684aa8a, type: 3}
+    effectColor: {r: 1, g: 0.8745099, b: 0.2784314, a: 1}
     _knifeType: 3
-  - _sprite: {fileID: 21300000, guid: baa806f399b8eea4d9889611374bc9b9, type: 3}
-    effectColor: {r: 0.5568628, g: 0.34901962, b: 0.21176472, a: 1}
+  - _sprite: {fileID: 21300000, guid: 936f19ecbc228c446876f89d9c0873e7, type: 3}
+    effectColor: {r: 0.08627451, g: 0.0627451, b: 0.07450981, a: 1}
     _knifeType: 4
-  - _sprite: {fileID: 21300000, guid: 973ed418c0166e5479d30edc056d2a8c, type: 3}
-    effectColor: {r: 0.6901961, g: 0.56078434, b: 0.47450984, a: 1}
+  - _sprite: {fileID: 21300000, guid: 5f20eff0068e5604ba47498f6450497e, type: 3}
+    effectColor: {r: 1, g: 0.5686275, b: 0, a: 1}
     _knifeType: 5
-  - _sprite: {fileID: 21300000, guid: 1a40561cbbf38c542881f2be93dfd81d, type: 3}
-    effectColor: {r: 0.58431375, g: 0.48627454, b: 0.28235295, a: 1}
+  - _sprite: {fileID: 21300000, guid: f363e770637ed2540bcff4e623601d81, type: 3}
+    effectColor: {r: 0.41960788, g: 0.39607847, b: 0.83921576, a: 1}
     _knifeType: 6
-  - _sprite: {fileID: 21300000, guid: dc6ac31877d954040bac0109eabcb230, type: 3}
-    effectColor: {r: 0.6627451, g: 0.5176471, b: 1, a: 1}
+  - _sprite: {fileID: 21300000, guid: f663046b95d4e9a4a96e7a00d9769fb4, type: 3}
+    effectColor: {r: 0.9921569, g: 0, b: 0.13725491, a: 1}
     _knifeType: 7
-  - _sprite: {fileID: 21300000, guid: 42ecc0aef4313d44b8c17f0cbd9319be, type: 3}
-    effectColor: {r: 0.45098042, g: 0.3254902, b: 0.22352943, a: 1}
+  - _sprite: {fileID: 21300000, guid: f71493c984a94f0409c830566bf19afb, type: 3}
+    effectColor: {r: 0.7686275, g: 0.7607844, b: 0.23529413, a: 1}
     _knifeType: 8
-  - _sprite: {fileID: 21300000, guid: 1222c407a253efe4db39d286b9990d8d, type: 3}
-    effectColor: {r: 0.5294118, g: 0.2901961, b: 0.21960786, a: 1}
+  - _sprite: {fileID: 21300000, guid: 8c6ba105b8561614588d41ab38333b22, type: 3}
+    effectColor: {r: 1, g: 0.8588236, b: 0.26666668, a: 1}
     _knifeType: 9
-  - _sprite: {fileID: 21300000, guid: 41e3e8a1d1f108944ac3d2697ab72215, type: 3}
-    effectColor: {r: 0.8862746, g: 0.8313726, b: 0.29411766, a: 1}
+  - _sprite: {fileID: 21300000, guid: e5f5944dbd69b8546a51dc802998e954, type: 3}
+    effectColor: {r: 0.3529412, g: 0.75294125, b: 0.21568629, a: 1}
     _knifeType: 10
